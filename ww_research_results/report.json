@@ -1,0 +1,150 @@
+{
+  "framework": "Qlib DatasetH + StaticDataLoader + LGBModel; Optuna TPE stores trial parameters and metrics",
+  "scope": "Causal daily-price proxy for WW leader identification and C.3/C.4 mechanical execution only; no point-in-time fundamentals, historic sector membership, or human mainline judgments.",
+  "data": {
+    "bars": 2344609,
+    "candidate_panel_rows": 33957,
+    "start": "20240601",
+    "end": "20260831",
+    "train_cutoff": "20250630",
+    "validation": [
+      "20250701",
+      "20251231"
+    ],
+    "test_signals": [
+      "20260101",
+      "20260601"
+    ],
+    "label": "next open to 60th session close",
+    "round_trip_cost": 0.003,
+    "max_positions": 10
+  },
+  "best_validation": {
+    "objective": 3.1778527585627887,
+    "parameters": {
+      "breakout_window": 60,
+      "vol_min": 1.1,
+      "stop_pct": 0.1,
+      "max_hold": 80,
+      "topk": 5,
+      "num_leaves": 12,
+      "max_depth": 8,
+      "learning_rate": 0.07113598705142046,
+      "feature_fraction": 0.7317110367849551,
+      "lambda_l1": 5.44514420448265,
+      "lambda_l2": 17.583390823749944,
+      "min_data_in_leaf": 105,
+      "num_boost_round": 83
+    },
+    "portfolio": {
+      "trades": 92,
+      "total_return": 0.36727242495456514,
+      "annualized_return": 0.8326705133815238,
+      "max_drawdown": -0.09778417280127305,
+      "annualized_volatility": 0.27057613365835265,
+      "sharpe_zero_rf": 3.0773982247558784,
+      "win_rate": 0.33695652173913043,
+      "mean_trade_return": 0.04729622408365495,
+      "mean_positions": 8.595238095238095,
+      "benchmark_total_return": 0.2185958173752569,
+      "excess_return_vs_benchmark": 0.14867660757930823
+    },
+    "rank_ic": {
+      "days": 126,
+      "mean_rank_ic": -0.01671706261976912,
+      "rank_ic_std": 0.16407298960846556,
+      "rank_ic_ir": -0.10188796254436373
+    }
+  },
+  "optimization": {
+    "trial_budget": 20,
+    "completed_trials": 20
+  },
+  "holdout_test": {
+    "portfolio": {
+      "trades": 64,
+      "total_return": 0.4112172129701368,
+      "annualized_return": 1.4000359125517279,
+      "max_drawdown": -0.15241666143592425,
+      "annualized_volatility": 0.28742488298888585,
+      "sharpe_zero_rf": 4.870962799020655,
+      "win_rate": 0.4375,
+      "mean_trade_return": 0.07169889640494212,
+      "mean_positions": 8.677083333333334,
+      "benchmark_total_return": 0.07784923207019467,
+      "excess_return_vs_benchmark": 0.33336798089994213
+    },
+    "rank_ic": {
+      "days": 100,
+      "mean_rank_ic": -0.010552885739197082,
+      "rank_ic_std": 0.17506824042261337,
+      "rank_ic_ir": -0.0602786988303675
+    },
+    "fit": {
+      "best_iteration": 1
+    },
+    "baseline_causal_mom60": {
+      "trades": 77,
+      "total_return": -0.014742752358799738,
+      "annualized_return": -0.03704646771192055,
+      "max_drawdown": -0.2972609668594365,
+      "annualized_volatility": 0.39165594780431734,
+      "sharpe_zero_rf": -0.09458931472791021,
+      "win_rate": 0.2727272727272727,
+      "mean_trade_return": 0.011601317177630188,
+      "mean_positions": 8.083333333333334,
+      "benchmark_total_return": 0.07784923207019467,
+      "excess_return_vs_benchmark": -0.09259198442899441
+    },
+    "rank_ablation_same_candidates_same_execution": {
+      "reverse_model_score": {
+        "trades": 73,
+        "total_return": -0.0020247433796236614,
+        "annualized_return": -0.0051381937794197086,
+        "max_drawdown": -0.28731308064492567,
+        "annualized_volatility": 0.36233143998349143,
+        "sharpe_zero_rf": -0.014180921698801007,
+        "win_rate": 0.2876712328767123,
+        "mean_trade_return": 0.02640850844023036,
+        "mean_positions": 8.552083333333334,
+        "benchmark_total_return": 0.07784923207019467,
+        "excess_return_vs_benchmark": -0.07987397544981834
+      },
+      "momentum_120": {
+        "trades": 82,
+        "total_return": 0.053303574778229335,
+        "annualized_return": 0.14109979384427862,
+        "max_drawdown": -0.28141873764252845,
+        "annualized_volatility": 0.3664969112513935,
+        "sharpe_zero_rf": 0.3849958608450404,
+        "win_rate": 0.21951219512195122,
+        "mean_trade_return": 0.005680368729975287,
+        "mean_positions": 8.041666666666666,
+        "benchmark_total_return": 0.07784923207019467,
+        "excess_return_vs_benchmark": -0.02454565729196534
+      },
+      "breakout_extension": {
+        "trades": 62,
+        "total_return": 0.7728022914205177,
+        "annualized_return": 3.2855997398054626,
+        "max_drawdown": -0.22430479869353082,
+        "annualized_volatility": 0.40588329654965,
+        "sharpe_zero_rf": 8.094937061307593,
+        "win_rate": 0.3870967741935484,
+        "mean_trade_return": 0.13164271599137758,
+        "mean_positions": 8.604166666666666,
+        "benchmark_total_return": 0.07784923207019467,
+        "excess_return_vs_benchmark": 0.694953059350323
+      },
+      "random_100_total_return": {
+        "median": 0.16840305677610867,
+        "p10": 0.0021517501986575253,
+        "p90": 0.4070916429484306,
+        "runs": 100,
+        "model_return_percentile": 0.9
+      }
+    }
+  },
+  "interpretation": "The holdout is only 2026-01 to 2026-06 because the 60-session label must mature by 2026-08. Final model trains through 2025-06 and uses 2025-H2 only for early stopping; no 2026 labels enter fitting. This is one short regime and not proof of durable alpha.",
+  "elapsed_seconds": 129.1
+}

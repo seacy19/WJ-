@@ -21,3 +21,6 @@ Thumbs.db
 *.swp
 *对话日志*
 latest_wj_strategy_source.txt
+.ww_qlib_venv/
+ww_research_results/candidate_*.parquet
+ww_research_results/optuna.sqlite

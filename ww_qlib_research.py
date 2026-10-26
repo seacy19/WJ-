@@ -8,9 +8,12 @@ from __future__ import annotations
 import json
 import math
 import os
+import sys
 import time
 import warnings
+from contextlib import nullcontext
 from pathlib import Path
+from types import ModuleType
 
 import numpy as np
 import pandas as pd
@@ -19,8 +22,27 @@ import qlib
 from qlib.data.dataset import DatasetH
 from qlib.data.dataset.handler import DataHandlerLP
 from qlib.data.dataset.loader import StaticDataLoader
+
+
+class _TrialRecorder:
+    """Qlib's built-in LightGBM logs iteration metrics through R; Optuna records trials here."""
+    def start(self, **kwargs):
+        return nullcontext()
+
+    def log_params(self, **kwargs):
+        return None
+
+    def log_metrics(self, **kwargs):
+        return None
+
+    def save_objects(self, **kwargs):
+        return None
+
+
+_workflow_stub = ModuleType("qlib.workflow")
+_workflow_stub.R = _TrialRecorder()
+sys.modules.setdefault("qlib.workflow", _workflow_stub)
 from qlib.contrib.model.gbdt import LGBModel
-from qlib.workflow import R
 
 ROOT = Path(__file__).resolve().parent
 CACHE = ROOT / "wj_backtest_cache"
@@ -277,7 +299,8 @@ def simulate_candidate(signal: pd.Series, bar_groups: dict[str, pd.DataFrame], s
 
 def portfolio_backtest(predictions: pd.DataFrame, panel: pd.DataFrame, bars: pd.DataFrame,
                        topk: int, stop_pct: float, max_hold: int,
-                       start: str, end: str) -> tuple[dict, pd.DataFrame, pd.DataFrame]:
+                       start: str, end: str,
+                       benchmark_daily: pd.Series | None = None) -> tuple[dict, pd.DataFrame, pd.DataFrame]:
     pred = predictions.reset_index()
     if "datetime" not in pred.columns:
         pred = pred.rename(columns={pred.columns[0]: "datetime"})
@@ -354,6 +377,12 @@ def portfolio_backtest(predictions: pd.DataFrame, panel: pd.DataFrame, bars: pd.
            "win_rate": float((accepted_df["return"] > 0).mean()) if len(accepted_df) else None,
            "mean_trade_return": float(accepted_df["return"].mean()) if len(accepted_df) else None,
            "mean_positions": float(curve.positions.mean())}
+    if benchmark_daily is not None:
+        benchmark_returns = benchmark_daily.reindex(curve.date).fillna(0).to_numpy(dtype=float)
+        benchmark_equity = np.cumprod(1 + benchmark_returns)
+        met["benchmark_total_return"] = float(benchmark_equity[-1] - 1)
+        met["excess_return_vs_benchmark"] = float(met["total_return"] - met["benchmark_total_return"])
+        curve["benchmark_equity"] = benchmark_equity
     return met, curve, accepted_df
 
 
@@ -366,7 +395,7 @@ def fit_predict(panel: pd.DataFrame, params: dict, train_end: str, valid_start: 
     qdf_label.columns = pd.MultiIndex.from_product([["label"], ["LABEL60"]])
     qdf = pd.concat([qdf_features, qdf_label], axis=1)
     qdf.index = pd.MultiIndex.from_arrays([pd.to_datetime(data.datetime), data.instrument], names=["datetime", "instrument"])
-    qdf.sort_index(inplace=True)
+    qdf = qdf.sort_index()
     td = sorted(data.datetime.unique())
     cutoff = max(0, np.searchsorted(td, train_end, side="right") - 61)
     train_end_purged = td[cutoff]
@@ -396,13 +425,25 @@ def rank_ic(pred: pd.Series, panel: pd.DataFrame) -> dict:
 def main() -> None:
     optuna.logging.set_verbosity(optuna.logging.WARNING)
     warnings.filterwarnings("ignore", category=FutureWarning)
-    daily, basic = load_prices()
-    panel, bars = build_candidates(daily, basic)
-    del daily, basic
-    qlib.init(default_conf="client", provider_uri="~/.qlib/ww_proxy")
+    panel_path, bars_path = OUT / "candidate_panel.parquet", OUT / "candidate_bars.parquet"
+    benchmark_daily = None
+    benchmark_path = ROOT / "wj_backtest_results" / "trend_equity_curve.csv"
+    if benchmark_path.exists():
+        benchmark = pd.read_csv(benchmark_path, dtype={"trade_date": str})
+        benchmark["trade_date"] = benchmark.trade_date.str.replace("-", "", regex=False)
+        benchmark_daily = benchmark.set_index("trade_date")["benchmark_equity"].sort_index().pct_change().fillna(0)
+    if panel_path.exists() and bars_path.exists():
+        panel, bars = pd.read_parquet(panel_path), pd.read_parquet(bars_path)
+        log(f"loaded cached candidates {len(panel):,}, price rows {len(bars):,}")
+    else:
+        daily, basic = load_prices()
+        panel, bars = build_candidates(daily, basic)
+        del daily, basic
     study = optuna.create_study(direction="maximize", study_name="ww_qlib_walkforward",
                                 storage=f"sqlite:///{(OUT / 'optuna.sqlite').as_posix()}", load_if_exists=True)
-    trials = 20
+    trial_budget = int(os.environ.get("WW_TRIAL_BUDGET", "20"))
+    completed = sum(t.state == optuna.trial.TrialState.COMPLETE for t in study.trials)
+    trials = max(0, trial_budget - completed)
     t0 = time.time()
 
     def objective(trial: optuna.Trial) -> float:
@@ -426,7 +467,8 @@ def main() -> None:
             "num_boost_round": trial.suggest_int("num_boost_round", 80, 300),
         }
         pred, fitinfo = fit_predict(filtered, model_params, TRAIN_CUTOFF, VALID_START, VALID_END, "valid")
-        metrics, _, trades = portfolio_backtest(pred, filtered, bars, topk, stop_pct, max_hold, VALID_START, VALID_END)
+        metrics, _, trades = portfolio_backtest(pred, filtered, bars, topk, stop_pct, max_hold,
+                                                VALID_START, VALID_END, benchmark_daily)
         ric = rank_ic(pred, filtered)
         # Penalize low breadth and deep drawdown; validation is for selection only, 2026 stays sealed.
         sharpe = metrics.get("sharpe_zero_rf") or -2.0
@@ -439,31 +481,55 @@ def main() -> None:
         log(f"trial {trial.number+1}/{trials}: score={score:.3f}, val_ret={metrics.get('total_return')}, trades={metrics.get('trades')}, IC={ric.get('mean_rank_ic')}")
         return float(score)
 
-    with R.start(experiment_name="WW Qlib price-proxy walk-forward"):
-        R.log_params(data_start=START, data_end=END, train_cutoff=TRAIN_CUTOFF,
+    with _workflow_stub.R.start(experiment_name="WW Qlib price-proxy walk-forward"):
+        _workflow_stub.R.log_params(data_start=START, data_end=END, train_cutoff=TRAIN_CUTOFF,
                      validation=f"{VALID_START}:{VALID_END}", test=f"{TEST_START}:{END}",
                      label="next-open-to-60-session-close", cost=ROUND_TRIP_COST,
                      max_positions=MAX_POSITIONS, trials=trials, data_rows=len(panel))
-        study.optimize(objective, n_trials=trials, gc_after_trial=True)
+        if trials:
+            study.optimize(objective, n_trials=trials, gc_after_trial=True)
         best = study.best_trial
         bp = dict(best.params)
         model_params = {k: bp[k] for k in ["num_leaves", "max_depth", "learning_rate", "feature_fraction",
                                             "lambda_l1", "lambda_l2", "min_data_in_leaf"]}
         model_params.update(num_threads=3, num_boost_round=bp["num_boost_round"])
         testpanel = panel[(panel[f"break_{bp['breakout_window']}"] == 1) & (panel.signal_vol_ratio >= bp["vol_min"])].copy()
-        # Refit through 2025 after selection; the 2026 test window is not seen during tuning.
-        pred, fitinfo = fit_predict(testpanel, model_params, VALID_END, TEST_START, TEST_LAST_SIGNAL, "test")
+        # Keep the 2026 holdout fully sealed: train through H1 2025, early-stop on H2 2025,
+        # then predict 2026 without reading holdout labels for fitting or early stopping.
+        pred, fitinfo = fit_predict(testpanel, model_params, TRAIN_CUTOFF, VALID_START, VALID_END, "test")
         ric = rank_ic(pred, testpanel)
         metrics, curve, trades = portfolio_backtest(pred, testpanel, bars, bp["topk"], bp["stop_pct"],
-                                                    bp["max_hold"], TEST_START, TEST_LAST_SIGNAL)
-        baseline_pred = pd.Series(0.0, index=pred.index)
+                                                    bp["max_hold"], TEST_START, TEST_LAST_SIGNAL, benchmark_daily)
         # Baseline preserves C entry/exit, ranking by causal 60-session momentum only.
         q = testpanel.set_index([pd.to_datetime(testpanel.datetime), "instrument"])
-        baseline_pred = q.loc[pred.index.get_level_values(0).isin(pred.index.get_level_values(0)), "mom60"].reindex(pred.index)
+        baseline_pred = q["mom60"].reindex(pred.index)
         baseline_metrics, baseline_curve, baseline_trades = portfolio_backtest(
-            baseline_pred, testpanel, bars, bp["topk"], bp["stop_pct"], bp["max_hold"], TEST_START, TEST_LAST_SIGNAL)
+            baseline_pred, testpanel, bars, bp["topk"], bp["stop_pct"], bp["max_hold"],
+            TEST_START, TEST_LAST_SIGNAL, benchmark_daily)
+        # Ranking ablations isolate whether the learned ordering adds value within the same
+        # candidate pool and execution rules. These are diagnostics, never used to retune.
+        rank_ablations = {}
+        rankers = {
+            "reverse_model_score": -pred,
+            "momentum_120": q["mom120"].reindex(pred.index),
+            "breakout_extension": (q["close"] / q["breakout_level"] - 1).reindex(pred.index),
+        }
+        for name, ranker in rankers.items():
+            rank_metrics, _, _ = portfolio_backtest(ranker, testpanel, bars, bp["topk"], bp["stop_pct"],
+                                                      bp["max_hold"], TEST_START, TEST_LAST_SIGNAL, benchmark_daily)
+            rank_ablations[name] = rank_metrics
+        random_returns = []
+        for seed in range(100):
+            random_rank = pd.Series(np.random.default_rng(SEED + seed).standard_normal(len(pred)), index=pred.index)
+            random_metrics, _, _ = portfolio_backtest(random_rank, testpanel, bars, bp["topk"], bp["stop_pct"],
+                                                       bp["max_hold"], TEST_START, TEST_LAST_SIGNAL, benchmark_daily)
+            random_returns.append(random_metrics.get("total_return", 0.0))
+        rank_ablations["random_100_total_return"] = {
+            "median": float(np.median(random_returns)), "p10": float(np.quantile(random_returns, 0.1)),
+            "p90": float(np.quantile(random_returns, 0.9)), "runs": len(random_returns),
+            "model_return_percentile": float(np.mean(np.asarray(random_returns) <= metrics.get("total_return", 0.0)))}
         report = {
-            "framework": "Qlib DatasetH + StaticDataLoader + LGBModel + Qlib workflow recorder; Optuna TPE parameter search",
+            "framework": "Qlib DatasetH + StaticDataLoader + LGBModel; Optuna TPE stores trial parameters and metrics",
             "scope": "Causal daily-price proxy for WW leader identification and C.3/C.4 mechanical execution only; no point-in-time fundamentals, historic sector membership, or human mainline judgments.",
             "data": {"bars": int(len(bars)), "candidate_panel_rows": int(len(panel)), "start": START, "end": END,
                      "train_cutoff": TRAIN_CUTOFF, "validation": [VALID_START, VALID_END],
@@ -472,21 +538,35 @@ def main() -> None:
             "best_validation": {"objective": best.value, "parameters": bp,
                                 "portfolio": best.user_attrs.get("portfolio"),
                                 "rank_ic": best.user_attrs.get("rank_ic")},
+            "optimization": {"trial_budget": trial_budget,
+                             "completed_trials": sum(t.state == optuna.trial.TrialState.COMPLETE for t in study.trials)},
             "holdout_test": {"portfolio": metrics, "rank_ic": ric, "fit": fitinfo,
-                             "baseline_causal_mom60": baseline_metrics},
-            "interpretation": "The holdout is only 2026-01 to 2026-06 because the 60-session label must mature by 2026-08. It is one short regime and is not proof of durable alpha.",
+                             "baseline_causal_mom60": baseline_metrics,
+                             "rank_ablation_same_candidates_same_execution": rank_ablations},
+            "interpretation": "The holdout is only 2026-01 to 2026-06 because the 60-session label must mature by 2026-08. Final model trains through 2025-06 and uses 2025-H2 only for early stopping; no 2026 labels enter fitting. This is one short regime and not proof of durable alpha.",
             "elapsed_seconds": round(time.time() - t0, 1),
         }
         (OUT / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
+        trial_rows = []
+        for item in study.trials:
+            portfolio = item.user_attrs.get("portfolio", {})
+            ic = item.user_attrs.get("rank_ic", {})
+            trial_rows.append({"trial": item.number, "state": item.state.name, "objective": item.value,
+                               **item.params, "validation_return": portfolio.get("total_return"),
+                               "validation_drawdown": portfolio.get("max_drawdown"),
+                               "validation_sharpe": portfolio.get("sharpe_zero_rf"),
+                               "validation_trades": portfolio.get("trades"),
+                               "validation_rank_ic": ic.get("mean_rank_ic")})
+        pd.DataFrame(trial_rows).to_csv(OUT / "optimization_trials.csv", index=False)
         curve.to_csv(OUT / "holdout_equity.csv", index=False)
         trades.to_csv(OUT / "holdout_trades.csv", index=False)
         baseline_curve.to_csv(OUT / "baseline_equity.csv", index=False)
         baseline_trades.to_csv(OUT / "baseline_trades.csv", index=False)
-        R.log_metrics(holdout_return=metrics.get("total_return", 0),
+        _workflow_stub.R.log_metrics(holdout_return=metrics.get("total_return", 0),
                       holdout_sharpe=metrics.get("sharpe_zero_rf", 0) or 0,
                       holdout_max_drawdown=metrics.get("max_drawdown", 0),
                       holdout_rank_ic=ric.get("mean_rank_ic", 0) or 0)
-        R.save_objects(report=report, holdout_equity=curve, holdout_trades=trades)
+        _workflow_stub.R.save_objects(report=report, holdout_equity=curve, holdout_trades=trades)
         log(json.dumps(report, ensure_ascii=False, indent=2, default=str))
 
 
