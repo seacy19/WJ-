@@ -1,0 +1,132 @@
+[
+  {
+    "code": "003032.SZ",
+    "name": "传智教育",
+    "industry": "文教休闲",
+    "ret10": 96.68,
+    "streak": 7,
+    "prior_streak": 6,
+    "pct": 10.01,
+    "break_today": false
+  },
+  {
+    "code": "002827.SZ",
+    "name": "高争民爆",
+    "industry": "化工原料",
+    "ret10": 76.29,
+    "streak": 5,
+    "prior_streak": 4,
+    "pct": 10.01,
+    "break_today": false
+  },
+  {
+    "code": "000820.SZ",
+    "name": "神雾节能",
+    "industry": "综合类",
+    "ret10": 59.55,
+    "streak": 4,
+    "prior_streak": 3,
+    "pct": 10.08,
+    "break_today": false
+  },
+  {
+    "code": "300996.SZ",
+    "name": "普联软件",
+    "industry": "软件服务",
+    "ret10": 58.89,
+    "streak": 0,
+    "prior_streak": 0,
+    "pct": 5.62,
+    "break_today": false
+  },
+  {
+    "code": "000533.SZ",
+    "name": "顺钠股份",
+    "industry": "电气设备",
+    "ret10": 58.49,
+    "streak": 2,
+    "prior_streak": 1,
+    "pct": 10.04,
+    "break_today": false
+  },
+  {
+    "code": "300290.SZ",
+    "name": "ST荣科",
+    "industry": "软件服务",
+    "ret10": 55.22,
+    "streak": 0,
+    "prior_streak": 0,
+    "pct": 5.17,
+    "break_today": false
+  },
+  {
+    "code": "300688.SZ",
+    "name": "创业黑马",
+    "industry": "文教休闲",
+    "ret10": 54.8,
+    "streak": 0,
+    "prior_streak": 0,
+    "pct": 2.67,
+    "break_today": false
+  },
+  {
+    "code": "301139.SZ",
+    "name": "*ST元道",
+    "industry": "通信设备",
+    "ret10": 54.37,
+    "streak": 0,
+    "prior_streak": 1,
+    "pct": 7.12,
+    "break_today": false
+  },
+  {
+    "code": "300981.SZ",
+    "name": "中红医疗",
+    "industry": "医疗保健",
+    "ret10": 54.03,
+    "streak": 0,
+    "prior_streak": 0,
+    "pct": 6.74,
+    "break_today": false
+  },
+  {
+    "code": "605068.SH",
+    "name": "明新旭腾",
+    "industry": "汽车配件",
+    "ret10": 53.69,
+    "streak": 1,
+    "prior_streak": 0,
+    "pct": 9.99,
+    "break_today": false
+  },
+  {
+    "code": "920575.BJ",
+    "name": "*ST康乐",
+    "industry": "生物制药",
+    "ret10": 52.86,
+    "streak": 0,
+    "prior_streak": 0,
+    "pct": -2.37,
+    "break_today": false
+  },
+  {
+    "code": "002667.SZ",
+    "name": "*ST威领",
+    "industry": "小金属",
+    "ret10": 51.72,
+    "streak": 0,
+    "prior_streak": 0,
+    "pct": -2.3,
+    "break_today": false
+  },
+  {
+    "code": "605179.SH",
+    "name": "一鸣食品",
+    "industry": "乳制品",
+    "ret10": 51.15,
+    "streak": 0,
+    "prior_streak": 5,
+    "pct": 1.78,
+    "break_today": false
+  }
+]

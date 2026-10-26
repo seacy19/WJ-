@@ -1,0 +1,1322 @@
+[
+  {
+    "code": "600919.SH",
+    "income": [
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20260820",
+        "end_date": "20260630",
+        "report_type": "1",
+        "revenue": 48951744000.0,
+        "n_income_attr_p": 21875647000.0
+      },
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20260820",
+        "end_date": "20260630",
+        "report_type": "1",
+        "revenue": 48951744000.0,
+        "n_income_attr_p": 21875647000.0
+      },
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20260429",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 24180308000.0,
+        "n_income_attr_p": 10582060000.0
+      },
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20260429",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 87942367000.0,
+        "n_income_attr_p": 34501004000.0
+      },
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20251031",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 67182801000.0,
+        "n_income_attr_p": 30582688000.0
+      },
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20250823",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 44864292000.0,
+        "n_income_attr_p": 20238459000.0
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20260820",
+        "end_date": "20260630",
+        "roe": 6.3472,
+        "grossprofit_margin": null,
+        "netprofit_margin": 46.6002,
+        "tr_yoy": 9.1107,
+        "netprofit_yoy": 8.0895,
+        "ocf_to_or": 3.8665
+      },
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20260429",
+        "end_date": "20260331",
+        "roe": 3.1026,
+        "grossprofit_margin": null,
+        "netprofit_margin": 45.1817,
+        "tr_yoy": 8.4118,
+        "netprofit_yoy": 8.201,
+        "ocf_to_or": 12.4749
+      },
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20260429",
+        "end_date": "20251231",
+        "roe": 10.7555,
+        "grossprofit_margin": null,
+        "netprofit_margin": 41.2586,
+        "tr_yoy": 8.8191,
+        "netprofit_yoy": 8.3465,
+        "ocf_to_or": 6.3752
+      },
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20251031",
+        "end_date": "20250930",
+        "roe": 9.5769,
+        "grossprofit_margin": null,
+        "netprofit_margin": 47.4744,
+        "tr_yoy": 7.8323,
+        "netprofit_yoy": 8.3152,
+        "ocf_to_or": 5.983
+      },
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20251031",
+        "end_date": "20250930",
+        "roe": 9.5769,
+        "grossprofit_margin": null,
+        "netprofit_margin": 47.4744,
+        "tr_yoy": 7.8323,
+        "netprofit_yoy": 8.3152,
+        "ocf_to_or": 5.983
+      },
+      {
+        "ts_code": "600919.SH",
+        "ann_date": "20250823",
+        "end_date": "20250630",
+        "roe": 6.394,
+        "grossprofit_margin": null,
+        "netprofit_margin": 46.9406,
+        "tr_yoy": 7.7822,
+        "netprofit_yoy": 8.0488,
+        "ocf_to_or": 6.9776
+      }
+    ]
+  },
+  {
+    "code": "601838.SH",
+    "income": [
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20260423",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 6197552000.0,
+        "n_income_attr_p": 3156704000.0
+      },
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20260423",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 6197552000.0,
+        "n_income_attr_p": 3156704000.0
+      },
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20260423",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 23602625000.0,
+        "n_income_attr_p": 13283492000.0
+      },
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20251029",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 17760713000.0,
+        "n_income_attr_p": 9492539000.0
+      },
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20250827",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 12269651000.0,
+        "n_income_attr_p": 6616567000.0
+      },
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20250429",
+        "end_date": "20250331",
+        "report_type": "1",
+        "revenue": 5816960000.0,
+        "n_income_attr_p": 3011878000.0
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20260423",
+        "end_date": "20260331",
+        "roe": 3.1203,
+        "grossprofit_margin": null,
+        "netprofit_margin": 50.9347,
+        "tr_yoy": 6.5428,
+        "netprofit_yoy": 4.8085,
+        "ocf_to_or": 11.2206
+      },
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20260423",
+        "end_date": "20251231",
+        "roe": 14.3451,
+        "grossprofit_margin": null,
+        "netprofit_margin": 56.2797,
+        "tr_yoy": 2.7026,
+        "netprofit_yoy": 3.3061,
+        "ocf_to_or": 3.1717
+      },
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20251029",
+        "end_date": "20250930",
+        "roe": 10.1163,
+        "grossprofit_margin": null,
+        "netprofit_margin": 53.4468,
+        "tr_yoy": 3.0135,
+        "netprofit_yoy": 5.0269,
+        "ocf_to_or": 3.2426
+      },
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20250827",
+        "end_date": "20250630",
+        "roe": 7.5883,
+        "grossprofit_margin": null,
+        "netprofit_margin": 53.9263,
+        "tr_yoy": 5.9093,
+        "netprofit_yoy": 7.2898,
+        "ocf_to_or": 4.0085
+      },
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20250429",
+        "end_date": "20250331",
+        "roe": 3.4519,
+        "grossprofit_margin": null,
+        "netprofit_margin": 51.7775,
+        "tr_yoy": 3.1709,
+        "netprofit_yoy": 5.6446,
+        "ocf_to_or": 11.0304
+      },
+      {
+        "ts_code": "601838.SH",
+        "ann_date": "20250429",
+        "end_date": "20250331",
+        "roe": 3.4519,
+        "grossprofit_margin": null,
+        "netprofit_margin": 51.7775,
+        "tr_yoy": 3.1709,
+        "netprofit_yoy": 5.6446,
+        "ocf_to_or": 11.0304
+      }
+    ]
+  },
+  {
+    "code": "601009.SH",
+    "income": [
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20260819",
+        "end_date": "20260630",
+        "report_type": "1",
+        "revenue": 31595756000.0,
+        "n_income_attr_p": 13650199000.0
+      },
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20260423",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 16111348000.0,
+        "n_income_attr_p": 6600003000.0
+      },
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20260423",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 55541916000.0,
+        "n_income_attr_p": 21807089000.0
+      },
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20251028",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 41948807000.0,
+        "n_income_attr_p": 18004866000.0
+      },
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20250829",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 28480211000.0,
+        "n_income_attr_p": 12619215000.0
+      },
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20250829",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 28480211000.0,
+        "n_income_attr_p": 12619215000.0
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20260819",
+        "end_date": "20260630",
+        "roe": 6.4319,
+        "grossprofit_margin": null,
+        "netprofit_margin": 43.4964,
+        "tr_yoy": 10.9393,
+        "netprofit_yoy": 8.17,
+        "ocf_to_or": 3.3289
+      },
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20260819",
+        "end_date": "20260630",
+        "roe": 6.4319,
+        "grossprofit_margin": null,
+        "netprofit_margin": 43.4964,
+        "tr_yoy": 10.9393,
+        "netprofit_yoy": 8.17,
+        "ocf_to_or": 3.3289
+      },
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20260423",
+        "end_date": "20260331",
+        "roe": 3.1472,
+        "grossprofit_margin": null,
+        "netprofit_margin": 41.2214,
+        "tr_yoy": 13.54,
+        "netprofit_yoy": 8.0465,
+        "ocf_to_or": 2.0604
+      },
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20260423",
+        "end_date": "20251231",
+        "roe": 11.0463,
+        "grossprofit_margin": null,
+        "netprofit_margin": 39.7131,
+        "tr_yoy": 10.4805,
+        "netprofit_yoy": 8.0804,
+        "ocf_to_or": 3.7847
+      },
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20251028",
+        "end_date": "20250930",
+        "roe": 8.9921,
+        "grossprofit_margin": null,
+        "netprofit_margin": 43.2462,
+        "tr_yoy": 8.7939,
+        "netprofit_yoy": 8.0553,
+        "ocf_to_or": 4.1603
+      },
+      {
+        "ts_code": "601009.SH",
+        "ann_date": "20250829",
+        "end_date": "20250630",
+        "roe": 6.3869,
+        "grossprofit_margin": null,
+        "netprofit_margin": 44.6103,
+        "tr_yoy": 8.6385,
+        "netprofit_yoy": 8.8413,
+        "ocf_to_or": 4.1958
+      }
+    ]
+  },
+  {
+    "code": "601225.SH",
+    "income": [
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20260425",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 38953072382.69,
+        "n_income_attr_p": 4209991046.33
+      },
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20260425",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 158178519718.2,
+        "n_income_attr_p": 16764763168.36
+      },
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20251030",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 118083109267.01,
+        "n_income_attr_p": 12713003978.99
+      },
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20250828",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 77982698531.11,
+        "n_income_attr_p": 7638458049.06
+      },
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20250426",
+        "end_date": "20250331",
+        "report_type": "1",
+        "revenue": 40162176900.55,
+        "n_income_attr_p": 4804771581.95
+      },
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20250426",
+        "end_date": "20241231",
+        "report_type": "1",
+        "revenue": 184144845071.05,
+        "n_income_attr_p": 22359786564.16
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20260425",
+        "end_date": "20260331",
+        "roe": 4.2305,
+        "grossprofit_margin": 31.1233,
+        "netprofit_margin": 17.9707,
+        "tr_yoy": -3.0106,
+        "netprofit_yoy": -12.379,
+        "ocf_to_or": 0.2484
+      },
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20260425",
+        "end_date": "20251231",
+        "roe": 17.881,
+        "grossprofit_margin": 29.0587,
+        "netprofit_margin": 16.8222,
+        "tr_yoy": -14.101,
+        "netprofit_yoy": -25.0227,
+        "ocf_to_or": 0.223
+      },
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20251030",
+        "end_date": "20250930",
+        "roe": 13.7426,
+        "grossprofit_margin": 28.1879,
+        "netprofit_margin": 16.8792,
+        "tr_yoy": -12.8134,
+        "netprofit_yoy": -27.2238,
+        "ocf_to_or": 0.2348
+      },
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20250828",
+        "end_date": "20250630",
+        "roe": 8.5085,
+        "grossprofit_margin": 28.0982,
+        "netprofit_margin": 16.0377,
+        "tr_yoy": -14.1873,
+        "netprofit_yoy": -31.1764,
+        "ocf_to_or": 0.2028
+      },
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20250426",
+        "end_date": "20250331",
+        "roe": 5.137,
+        "grossprofit_margin": 28.8823,
+        "netprofit_margin": 18.2145,
+        "tr_yoy": -7.2994,
+        "netprofit_yoy": -1.2277,
+        "ocf_to_or": 0.1755
+      },
+      {
+        "ts_code": "601225.SH",
+        "ann_date": "20250426",
+        "end_date": "20250331",
+        "roe": 5.137,
+        "grossprofit_margin": 28.8823,
+        "netprofit_margin": 18.2145,
+        "tr_yoy": -7.2994,
+        "netprofit_yoy": -1.2277,
+        "ocf_to_or": 0.1755
+      }
+    ]
+  },
+  {
+    "code": "601898.SH",
+    "income": [
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20260822",
+        "end_date": "20260630",
+        "report_type": "1",
+        "revenue": 73136057000.0,
+        "n_income_attr_p": 8149301000.0
+      },
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20260428",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 34188624000.0,
+        "n_income_attr_p": 3844352000.0
+      },
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20260328",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 148056698000.0,
+        "n_income_attr_p": 17883577000.0
+      },
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20251028",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 110584315000.0,
+        "n_income_attr_p": 12484630000.0
+      },
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20251028",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 110584315000.0,
+        "n_income_attr_p": 12484630000.0
+      },
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20250823",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 74435996000.0,
+        "n_income_attr_p": 7704701000.0
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20260822",
+        "end_date": "20260630",
+        "roe": 4.9947,
+        "grossprofit_margin": 26.9192,
+        "netprofit_margin": 13.1057,
+        "tr_yoy": -1.761,
+        "netprofit_yoy": 5.8255,
+        "ocf_to_or": 0.1349
+      },
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20260428",
+        "end_date": "20260331",
+        "roe": 2.372,
+        "grossprofit_margin": 25.5094,
+        "netprofit_margin": 13.0538,
+        "tr_yoy": -10.9474,
+        "netprofit_yoy": -3.1866,
+        "ocf_to_or": 0.1681
+      },
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20260328",
+        "end_date": "20251231",
+        "roe": 11.4622,
+        "grossprofit_margin": 27.4891,
+        "netprofit_margin": 14.7507,
+        "tr_yoy": -21.8269,
+        "netprofit_yoy": -7.2707,
+        "ocf_to_or": 0.2012
+      },
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20251028",
+        "end_date": "20250930",
+        "roe": 8.0735,
+        "grossprofit_margin": 25.9455,
+        "netprofit_margin": 13.7483,
+        "tr_yoy": -21.2431,
+        "netprofit_yoy": -14.5712,
+        "ocf_to_or": 0.1909
+      },
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20251028",
+        "end_date": "20250930",
+        "roe": 8.0735,
+        "grossprofit_margin": 25.9455,
+        "netprofit_margin": 13.7483,
+        "tr_yoy": -21.2431,
+        "netprofit_yoy": -14.5712,
+        "ocf_to_or": 0.1909
+      },
+      {
+        "ts_code": "601898.SH",
+        "ann_date": "20250823",
+        "end_date": "20250630",
+        "roe": 5.0091,
+        "grossprofit_margin": 24.6198,
+        "netprofit_margin": 12.6547,
+        "tr_yoy": -19.9474,
+        "netprofit_yoy": -21.2825,
+        "ocf_to_or": 0.103
+      }
+    ]
+  },
+  {
+    "code": "600188.SH",
+    "income": [
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20260429",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 34588720000.0,
+        "n_income_attr_p": 3954969000.0
+      },
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20260429",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 34588720000.0,
+        "n_income_attr_p": 3954969000.0
+      },
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20260328",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 144932859000.0,
+        "n_income_attr_p": 8380948000.0
+      },
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20251031",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 104957463000.0,
+        "n_income_attr_p": 7119974000.0
+      },
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20250830",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 59349051000.0,
+        "n_income_attr_p": 4652048000.0
+      },
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20250426",
+        "end_date": "20250331",
+        "report_type": "1",
+        "revenue": 30311901000.0,
+        "n_income_attr_p": 2710074000.0
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20260429",
+        "end_date": "20260331",
+        "roe": 3.8434,
+        "grossprofit_margin": 25.9182,
+        "netprofit_margin": 15.1599,
+        "tr_yoy": 1.8306,
+        "netprofit_yoy": 42.1439,
+        "ocf_to_or": 0.1787
+      },
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20260429",
+        "end_date": "20260331",
+        "roe": 3.8434,
+        "grossprofit_margin": 25.9182,
+        "netprofit_margin": 15.1599,
+        "tr_yoy": 1.8306,
+        "netprofit_yoy": 42.1439,
+        "ocf_to_or": 0.1787
+      },
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20260328",
+        "end_date": "20251231",
+        "roe": 9.1558,
+        "grossprofit_margin": 29.3403,
+        "netprofit_margin": 9.8154,
+        "tr_yoy": -7.4929,
+        "netprofit_yoy": -43.6118,
+        "ocf_to_or": 0.1344
+      },
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20251031",
+        "end_date": "20250930",
+        "roe": 8.9193,
+        "grossprofit_margin": 29.7424,
+        "netprofit_margin": 10.6158,
+        "tr_yoy": -11.6429,
+        "netprofit_yoy": -39.1526,
+        "ocf_to_or": 0.1867
+      },
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20251031",
+        "end_date": "20250930",
+        "roe": 9.5064,
+        "grossprofit_margin": 29.7424,
+        "netprofit_margin": 10.6158,
+        "tr_yoy": -11.6429,
+        "netprofit_yoy": -37.5036,
+        "ocf_to_or": 0.1867
+      },
+      {
+        "ts_code": "600188.SH",
+        "ann_date": "20250830",
+        "end_date": "20250630",
+        "roe": 5.5701,
+        "grossprofit_margin": 29.7059,
+        "netprofit_margin": 11.4707,
+        "tr_yoy": -17.9259,
+        "netprofit_yoy": -38.5326,
+        "ocf_to_or": 0.2285
+      }
+    ]
+  },
+  {
+    "code": "002128.SZ",
+    "income": [
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20260415",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 8413266224.26,
+        "n_income_attr_p": 2001108276.43
+      },
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20260415",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 8413266224.26,
+        "n_income_attr_p": 2001108276.43
+      },
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20260415",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 30114958327.31,
+        "n_income_attr_p": 5419089199.76
+      },
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20260415",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 30114958327.31,
+        "n_income_attr_p": 5419089199.76
+      },
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20251024",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 22402898552.86,
+        "n_income_attr_p": 4117940804.09
+      },
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20250828",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 14463566927.57,
+        "n_income_attr_p": 2786570009.0
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20260415",
+        "end_date": "20260331",
+        "roe": 5.1374,
+        "grossprofit_margin": 46.5209,
+        "netprofit_margin": 31.0031,
+        "tr_yoy": 11.6196,
+        "netprofit_yoy": 28.3545,
+        "ocf_to_or": 0.3206
+      },
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20260415",
+        "end_date": "20251231",
+        "roe": 14.887,
+        "grossprofit_margin": 36.8341,
+        "netprofit_margin": 21.6834,
+        "tr_yoy": 0.857,
+        "netprofit_yoy": 1.4504,
+        "ocf_to_or": 0.3057
+      },
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20251024",
+        "end_date": "20250930",
+        "roe": 11.4643,
+        "grossprofit_margin": 35.5546,
+        "netprofit_margin": 22.0879,
+        "tr_yoy": 2.7208,
+        "netprofit_yoy": -6.4031,
+        "ocf_to_or": 0.3504
+      },
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20250828",
+        "end_date": "20250630",
+        "roe": 7.9152,
+        "grossprofit_margin": 35.4613,
+        "netprofit_margin": 22.8031,
+        "tr_yoy": 2.3837,
+        "netprofit_yoy": -5.3553,
+        "ocf_to_or": 0.2657
+      },
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20250828",
+        "end_date": "20250630",
+        "roe": 7.9152,
+        "grossprofit_margin": 35.4613,
+        "netprofit_margin": 22.8031,
+        "tr_yoy": 2.3837,
+        "netprofit_yoy": -5.3553,
+        "ocf_to_or": 0.2657
+      },
+      {
+        "ts_code": "002128.SZ",
+        "ann_date": "20250428",
+        "end_date": "20250331",
+        "roe": 4.3966,
+        "grossprofit_margin": 35.5302,
+        "netprofit_margin": 23.1507,
+        "tr_yoy": 2.6256,
+        "netprofit_yoy": -19.8159,
+        "ocf_to_or": 0.2343
+      }
+    ]
+  },
+  {
+    "code": "300628.SZ",
+    "income": [
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20260819",
+        "end_date": "20260630",
+        "report_type": "1",
+        "revenue": 3349291691.41,
+        "n_income_attr_p": 1524249434.33
+      },
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20260422",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 1432034328.38,
+        "n_income_attr_p": 655796054.24
+      },
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20260422",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 6033175769.11,
+        "n_income_attr_p": 2600608389.66
+      },
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20251027",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 4298336791.76,
+        "n_income_attr_p": 1958115335.46
+      },
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20250826",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 2649844079.73,
+        "n_income_attr_p": 1240041705.8
+      },
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20250421",
+        "end_date": "20250331",
+        "report_type": "1",
+        "revenue": 1205153306.39,
+        "n_income_attr_p": 562063844.36
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20260819",
+        "end_date": "20260630",
+        "roe": 16.4461,
+        "grossprofit_margin": 64.8811,
+        "netprofit_margin": 45.5096,
+        "tr_yoy": 26.3958,
+        "netprofit_yoy": 22.9192,
+        "ocf_to_or": 0.2474
+      },
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20260422",
+        "end_date": "20260331",
+        "roe": 6.7917,
+        "grossprofit_margin": 65.2371,
+        "netprofit_margin": 45.7947,
+        "tr_yoy": 18.8259,
+        "netprofit_yoy": 16.6764,
+        "ocf_to_or": 0.1769
+      },
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20260422",
+        "end_date": "20251231",
+        "roe": 28.4602,
+        "grossprofit_margin": 63.3196,
+        "netprofit_margin": 43.1051,
+        "tr_yoy": 7.3264,
+        "netprofit_yoy": -1.7844,
+        "ocf_to_or": 0.3037
+      },
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20251027",
+        "end_date": "20250930",
+        "roe": 22.2237,
+        "grossprofit_margin": 63.9456,
+        "netprofit_margin": 45.5552,
+        "tr_yoy": 4.5889,
+        "netprofit_yoy": -5.1592,
+        "ocf_to_or": 0.3396
+      },
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20250826",
+        "end_date": "20250630",
+        "roe": 14.1331,
+        "grossprofit_margin": 65.1814,
+        "netprofit_margin": 46.7968,
+        "tr_yoy": -0.6434,
+        "netprofit_yoy": -8.8383,
+        "ocf_to_or": 0.3601
+      },
+      {
+        "ts_code": "300628.SZ",
+        "ann_date": "20250421",
+        "end_date": "20250331",
+        "roe": 6.0904,
+        "grossprofit_margin": 64.5372,
+        "netprofit_margin": 46.6384,
+        "tr_yoy": 3.5696,
+        "netprofit_yoy": -1.1508,
+        "ocf_to_or": 0.3665
+      }
+    ]
+  },
+  {
+    "code": "001872.SZ",
+    "income": [
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20260430",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 4407582949.96,
+        "n_income_attr_p": 1131939432.33
+      },
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20260403",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 17246382527.85,
+        "n_income_attr_p": 4611352247.98
+      },
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20251031",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 12761718577.69,
+        "n_income_attr_p": 3806626280.8
+      },
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20250830",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 8468491376.08,
+        "n_income_attr_p": 2626638199.47
+      },
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20250430",
+        "end_date": "20250331",
+        "report_type": "1",
+        "revenue": 4214355369.19,
+        "n_income_attr_p": 1090726175.19
+      },
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20250430",
+        "end_date": "20250331",
+        "report_type": "1",
+        "revenue": 4214355369.19,
+        "n_income_attr_p": 1090726175.19
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20260430",
+        "end_date": "20260331",
+        "roe": 1.7418,
+        "grossprofit_margin": 47.5293,
+        "netprofit_margin": 50.1306,
+        "tr_yoy": 4.585,
+        "netprofit_yoy": 3.7785,
+        "ocf_to_or": 0.2429
+      },
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20260403",
+        "end_date": "20251231",
+        "roe": 7.3272,
+        "grossprofit_margin": 44.0104,
+        "netprofit_margin": 51.6398,
+        "tr_yoy": 6.916,
+        "netprofit_yoy": 2.1046,
+        "ocf_to_or": 0.474
+      },
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20251031",
+        "end_date": "20250930",
+        "roe": 6.0838,
+        "grossprofit_margin": 44.9517,
+        "netprofit_margin": 58.4831,
+        "tr_yoy": 4.8936,
+        "netprofit_yoy": 1.8873,
+        "ocf_to_or": 0.4179
+      },
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20250830",
+        "end_date": "20250630",
+        "roe": 4.2348,
+        "grossprofit_margin": 45.7251,
+        "netprofit_margin": 59.9874,
+        "tr_yoy": 6.1854,
+        "netprofit_yoy": 3.1337,
+        "ocf_to_or": 0.3553
+      },
+      {
+        "ts_code": "001872.SZ",
+        "ann_date": "20250430",
+        "end_date": "20250331",
+        "roe": 1.7578,
+        "grossprofit_margin": 46.7097,
+        "netprofit_margin": 50.7163,
+        "tr_yoy": 8.9914,
+        "netprofit_yoy": 5.2099,
+        "ocf_to_or": 0.2782
+      }
+    ]
+  },
+  {
+    "code": "600377.SH",
+    "income": [
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20260430",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 4527555928.01,
+        "n_income_attr_p": 1365946091.37
+      },
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20260330",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 20289199757.75,
+        "n_income_attr_p": 4593870605.31
+      },
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20251030",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 12981379309.46,
+        "n_income_attr_p": 3837103959.45
+      },
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20250829",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 9405722179.55,
+        "n_income_attr_p": 2423880435.76
+      },
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20250429",
+        "end_date": "20250331",
+        "report_type": "1",
+        "revenue": 4781525555.03,
+        "n_income_attr_p": 1210866236.48
+      },
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20250327",
+        "end_date": "20241231",
+        "report_type": "1",
+        "revenue": 23198204414.58,
+        "n_income_attr_p": 4946691605.41
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20260430",
+        "end_date": "20260331",
+        "roe": 3.2223,
+        "grossprofit_margin": 36.5971,
+        "netprofit_margin": 31.3519,
+        "tr_yoy": -5.3115,
+        "netprofit_yoy": 12.8073,
+        "ocf_to_or": 0.3789
+      },
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20260430",
+        "end_date": "20260331",
+        "roe": 3.2223,
+        "grossprofit_margin": 36.5971,
+        "netprofit_margin": 31.3519,
+        "tr_yoy": -5.3115,
+        "netprofit_yoy": 12.8073,
+        "ocf_to_or": 0.3789
+      },
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20260330",
+        "end_date": "20251231",
+        "roe": 11.479,
+        "grossprofit_margin": 30.0711,
+        "netprofit_margin": 23.7635,
+        "tr_yoy": -12.5398,
+        "netprofit_yoy": -7.1325,
+        "ocf_to_or": 0.3333
+      },
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20251030",
+        "end_date": "20250930",
+        "roe": 9.729,
+        "grossprofit_margin": 38.8636,
+        "netprofit_margin": 31.1006,
+        "tr_yoy": -7.6613,
+        "netprofit_yoy": -6.8597,
+        "ocf_to_or": 0.4185
+      },
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20250829",
+        "end_date": "20250630",
+        "roe": 6.1566,
+        "grossprofit_margin": 33.1655,
+        "netprofit_margin": 26.9608,
+        "tr_yoy": -5.5644,
+        "netprofit_yoy": -11.8098,
+        "ocf_to_or": 0.3484
+      },
+      {
+        "ts_code": "600377.SH",
+        "ann_date": "20250429",
+        "end_date": "20250331",
+        "roe": 3.0957,
+        "grossprofit_margin": 34.6718,
+        "netprofit_margin": 26.271,
+        "tr_yoy": 37.6615,
+        "netprofit_yoy": -2.8849,
+        "ocf_to_or": 0.3583
+      }
+    ]
+  },
+  {
+    "code": "600598.SH",
+    "income": [
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20260429",
+        "end_date": "20260331",
+        "report_type": "1",
+        "revenue": 1046868776.45,
+        "n_income_attr_p": 580891321.83
+      },
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20260321",
+        "end_date": "20251231",
+        "report_type": "1",
+        "revenue": 5229190487.41,
+        "n_income_attr_p": 1166182575.0
+      },
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20251029",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 4108363488.32,
+        "n_income_attr_p": 1356795537.94
+      },
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20251029",
+        "end_date": "20250930",
+        "report_type": "1",
+        "revenue": 4108363488.32,
+        "n_income_attr_p": 1356795537.94
+      },
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20250828",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 3014141355.97,
+        "n_income_attr_p": 984434519.64
+      },
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20250828",
+        "end_date": "20250630",
+        "report_type": "1",
+        "revenue": 3014141355.97,
+        "n_income_attr_p": 984434519.64
+      }
+    ],
+    "indicator": [
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20260429",
+        "end_date": "20260331",
+        "roe": 7.0054,
+        "grossprofit_margin": 64.2689,
+        "netprofit_margin": 55.2715,
+        "tr_yoy": 9.5433,
+        "netprofit_yoy": 7.8438,
+        "ocf_to_or": 5.3241
+      },
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20260321",
+        "end_date": "20251231",
+        "roe": 14.7613,
+        "grossprofit_margin": 34.5564,
+        "netprofit_margin": 22.3155,
+        "tr_yoy": -2.052,
+        "netprofit_yoy": 7.2638,
+        "ocf_to_or": 0.2372
+      },
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20251029",
+        "end_date": "20250930",
+        "roe": 16.9648,
+        "grossprofit_margin": 40.6123,
+        "netprofit_margin": 32.8832,
+        "tr_yoy": -5.7331,
+        "netprofit_yoy": 0.695,
+        "ocf_to_or": 0.7273
+      },
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20250828",
+        "end_date": "20250630",
+        "roe": 12.5995,
+        "grossprofit_margin": 38.9622,
+        "netprofit_margin": 32.5304,
+        "tr_yoy": -2.7233,
+        "netprofit_yoy": 0.0866,
+        "ocf_to_or": 1.225
+      },
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20250828",
+        "end_date": "20250630",
+        "roe": 12.5995,
+        "grossprofit_margin": 38.9622,
+        "netprofit_margin": 32.5304,
+        "tr_yoy": -2.7233,
+        "netprofit_yoy": 0.0866,
+        "ocf_to_or": 1.225
+      },
+      {
+        "ts_code": "600598.SH",
+        "ann_date": "20250429",
+        "end_date": "20250331",
+        "roe": 6.6696,
+        "grossprofit_margin": 65.3079,
+        "netprofit_margin": 56.146,
+        "tr_yoy": -0.0548,
+        "netprofit_yoy": -2.9011,
+        "ocf_to_or": 5.4099
+      }
+    ]
+  }
+]

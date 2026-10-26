@@ -1,0 +1,119 @@
+{
+  "config": {
+    "data_start": "20240601",
+    "backtest_start": "20250102",
+    "end": "20260831",
+    "round_trip_cost": 0.003,
+    "max_positions": 10
+  },
+  "methodology": {
+    "b3": "B.1/B.2 leader break + same-industry proxy + B.3 bottom/volume gate; next-open entry",
+    "trend": "C.3/C.4 technical execution proxy only; no historical fundamental/theme look-ahead",
+    "cost": 0.003,
+    "benchmark": "daily-rebalanced all-A equal-weight return"
+  },
+  "data": {
+    "rows": 2963536,
+    "codes": 5638,
+    "first_date": "20240603",
+    "last_date": "20260831"
+  },
+  "b3": {
+    "signals": 701,
+    "trade_metrics": {
+      "trades": 676,
+      "win_rate": 0.3875739644970414,
+      "mean_return": -0.00434595294917817,
+      "median_return": -0.007128685259580159,
+      "mean_excess": -0.009885429467978444,
+      "avg_win": 0.024251497679544893,
+      "avg_loss": -0.02244385648716233,
+      "profit_factor": 0.6838203663050655,
+      "best": 0.11131258887322093,
+      "worst": -0.09435570786827985,
+      "avg_holding_days": 2.8328402366863905,
+      "open_at_end": 0
+    },
+    "portfolio_metrics": {
+      "accepted_trades": 637,
+      "total_return": -0.2711422774648229,
+      "annualized_return": -0.1742742754025991,
+      "max_drawdown": -0.33277131615974753,
+      "annualized_volatility": 0.08469820633724592,
+      "sharpe_zero_rf": -2.057591098313049,
+      "benchmark_total_return": 0.5424513816833496,
+      "excess_total_return": -0.8135936591481725,
+      "average_position_count": 2.858560794044665,
+      "max_position_count": 9
+    }
+  },
+  "trend": {
+    "signals": 8724,
+    "trade_metrics": {
+      "trades": 6010,
+      "win_rate": 0.2642262895174709,
+      "mean_return": 0.01043132550198157,
+      "median_return": -0.03499313145918481,
+      "mean_excess": -0.00018485840377067977,
+      "avg_win": 0.18839782384666792,
+      "avg_loss": -0.05347885074663035,
+      "profit_factor": 1.2651020984497077,
+      "best": 3.516397535503473,
+      "worst": -0.17223059577554467,
+      "avg_holding_days": 12.643427620632279,
+      "open_at_end": 19
+    },
+    "portfolio_metrics": {
+      "accepted_trades": 325,
+      "total_return": -0.20281595974129463,
+      "annualized_return": -0.12823834969299852,
+      "max_drawdown": -0.35871242618533916,
+      "annualized_volatility": 0.26333115303802884,
+      "sharpe_zero_rf": -0.4869851068266087,
+      "benchmark_total_return": 0.5424513816833496,
+      "excess_total_return": -0.7452673414246442,
+      "average_position_count": 8.883374689826303,
+      "max_position_count": 10
+    }
+  },
+  "historical_snapshot_audit": {
+    "signals": 88,
+    "trade_metrics": {
+      "trades": 35,
+      "win_rate": 0.4,
+      "mean_return": -0.010268667917152407,
+      "median_return": -0.004925142942565408,
+      "mean_excess": -0.019114882756542752,
+      "avg_win": 0.04610018335106309,
+      "avg_loss": -0.047847902095962735,
+      "profit_factor": 0.642315633938078,
+      "best": 0.12932595454385787,
+      "worst": -0.08299999999999996,
+      "avg_holding_days": 6.285714285714286,
+      "open_at_end": 21
+    },
+    "forward_metrics": {
+      "1d": {
+        "count": 88,
+        "mean_return": -0.0067784716085700775,
+        "median_return": -0.006985557031489007,
+        "win_rate": 0.3409090909090909,
+        "mean_excess": -0.007196881991057633
+      },
+      "3d": {
+        "count": 76,
+        "mean_return": -0.009838729847649878,
+        "median_return": -0.006708178064475487,
+        "win_rate": 0.3684210526315789,
+        "mean_excess": -0.015534081492216058
+      },
+      "5d": {
+        "count": 76,
+        "mean_return": -0.008267889572018516,
+        "median_return": -0.00015142961957503604,
+        "win_rate": 0.5,
+        "mean_excess": -0.020949420850729133
+      }
+    }
+  }
+}
