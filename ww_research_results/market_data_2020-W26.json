@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "week_id": "2020-W26",
+  "week_start": "2020-06-22",
+  "week_end_calendar_date": "2020-06-28",
+  "trading_dates": [
+    "2020-06-22",
+    "2020-06-23",
+    "2020-06-24"
+  ],
+  "baseline_trade_date": "2020-06-19",
+  "information_cutoff": "2020-06-24 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T17:51:08.026012+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2020-06-19": 3898,
+    "2020-06-22": 3907,
+    "2020-06-23": 3907,
+    "2020-06-24": 3907
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 3860,
+    "median_weekly_return_pct": -0.92419,
+    "positive_share_pct": 37.331606,
+    "negative_share_pct": 62.61658
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 2967.6341,
+      "end_close": 2979.5505,
+      "weekly_return_pct": 0.401545
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 4098.7095,
+      "end_close": 4138.9895,
+      "weekly_return_pct": 0.982748
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 5787.1482,
+      "end_close": 5789.0893,
+      "weekly_return_pct": 0.033542
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 11668.1332,
+      "end_close": 11813.528,
+      "weekly_return_pct": 1.246085
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 2319.4494,
+      "end_close": 2382.4734,
+      "weekly_return_pct": 2.717197
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}
