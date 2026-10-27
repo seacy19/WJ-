@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "week_id": "2021-W38",
+  "week_start": "2021-09-20",
+  "week_end_calendar_date": "2021-09-26",
+  "trading_dates": [
+    "2021-09-22",
+    "2021-09-23",
+    "2021-09-24"
+  ],
+  "baseline_trade_date": "2021-09-17",
+  "information_cutoff": "2021-09-24 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T20:13:56.719777+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2021-09-17": 4593,
+    "2021-09-22": 4606,
+    "2021-09-23": 4615,
+    "2021-09-24": 4613
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 4575,
+    "median_weekly_return_pct": -0.639999,
+    "positive_share_pct": 41.071038,
+    "negative_share_pct": 58.928962
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 3613.9663,
+      "end_close": 3613.0673,
+      "weekly_return_pct": -0.024876
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 4855.9402,
+      "end_close": 4849.4277,
+      "weekly_return_pct": -0.134114
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 7395.5645,
+      "end_close": 7380.3843,
+      "weekly_return_pct": -0.205261
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 14359.3583,
+      "end_close": 14357.8459,
+      "weekly_return_pct": -0.010533
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 3193.261,
+      "end_close": 3207.8166,
+      "weekly_return_pct": 0.455822
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}
