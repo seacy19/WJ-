@@ -74,11 +74,26 @@ def main() -> int:
             row["status"] = "行情快照与研究待办已自动生成，等待人工主线复盘"
             updated = True
             break
-    if updated:
-        with backlog_path.open("w", encoding="utf-8-sig", newline="") as stream:
-            writer = csv.DictWriter(stream, fieldnames=rows[0].keys(), lineterminator="\n")
-            writer.writeheader()
-            writer.writerows(rows)
+    if not updated:
+        rows.append(
+            {
+                "week_id": week_id,
+                "week_start": week_start.isoformat(),
+                "week_end": week_end.isoformat(),
+                "status": "行情快照与研究待办已自动生成，等待人工主线复盘",
+                "mainline": "",
+                "evidence_links": "",
+                "after_week_validation": (
+                    f"TuShare快照：{snapshot['market_breadth']['complete_stock_count']}只完整样本，"
+                    f"中位收益{snapshot['market_breadth']['median_weekly_return_pct']:.3f}%，"
+                    f"上涨占比{snapshot['market_breadth']['positive_share_pct']:.2f}%。"
+                ),
+            }
+        )
+    with backlog_path.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=rows[0].keys(), lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
     return 0
 
 
