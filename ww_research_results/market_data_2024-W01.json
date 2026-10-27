@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "week_id": "2024-W01",
+  "week_start": "2024-01-01",
+  "week_end_calendar_date": "2024-01-07",
+  "trading_dates": [
+    "2024-01-02",
+    "2024-01-03",
+    "2024-01-04",
+    "2024-01-05"
+  ],
+  "baseline_trade_date": "2023-12-29",
+  "information_cutoff": "2024-01-05 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T23:14:56.698969+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2023-12-29": 5329,
+    "2024-01-02": 5329,
+    "2024-01-03": 5330,
+    "2024-01-04": 5330,
+    "2024-01-05": 5332
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 5328,
+    "median_weekly_return_pct": -2.117169,
+    "positive_share_pct": 28.021772,
+    "negative_share_pct": 71.959459
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 2974.9348,
+      "end_close": 2929.1833,
+      "weekly_return_pct": -1.537899
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 3431.1099,
+      "end_close": 3329.1114,
+      "weekly_return_pct": -2.972755
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 5429.2288,
+      "end_close": 5281.8711,
+      "weekly_return_pct": -2.714155
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 9524.6895,
+      "end_close": 9116.4423,
+      "weekly_return_pct": -4.2862
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 1891.3665,
+      "end_close": 1775.5767,
+      "weekly_return_pct": -6.122018
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}

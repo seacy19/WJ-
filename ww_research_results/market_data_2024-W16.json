@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "week_id": "2024-W16",
+  "week_start": "2024-04-15",
+  "week_end_calendar_date": "2024-04-21",
+  "trading_dates": [
+    "2024-04-15",
+    "2024-04-16",
+    "2024-04-17",
+    "2024-04-18",
+    "2024-04-19"
+  ],
+  "baseline_trade_date": "2024-04-12",
+  "information_cutoff": "2024-04-19 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T23:24:44.063588+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2024-04-12": 5363,
+    "2024-04-15": 5363,
+    "2024-04-16": 5363,
+    "2024-04-17": 5362,
+    "2024-04-18": 5361,
+    "2024-04-19": 5359
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 5358,
+    "median_weekly_return_pct": -5.357508,
+    "positive_share_pct": 23.609556,
+    "negative_share_pct": 76.390444
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 3019.4735,
+      "end_close": 3065.261,
+      "weekly_return_pct": 1.516407
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 3475.8389,
+      "end_close": 3541.6619,
+      "weekly_return_pct": 1.89373
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 5277.219,
+      "end_close": 5314.8667,
+      "weekly_return_pct": 0.7134
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 9228.2347,
+      "end_close": 9279.4602,
+      "weekly_return_pct": 0.555095
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 1762.8771,
+      "end_close": 1756.0006,
+      "weekly_return_pct": -0.390073
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}

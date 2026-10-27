@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "week_id": "2024-W06",
+  "week_start": "2024-02-05",
+  "week_end_calendar_date": "2024-02-11",
+  "trading_dates": [
+    "2024-02-05",
+    "2024-02-06",
+    "2024-02-07",
+    "2024-02-08"
+  ],
+  "baseline_trade_date": "2024-02-02",
+  "information_cutoff": "2024-02-08 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T23:18:23.393622+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2024-02-02": 5345,
+    "2024-02-05": 5344,
+    "2024-02-06": 5345,
+    "2024-02-07": 5346,
+    "2024-02-08": 5348
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 5343,
+    "median_weekly_return_pct": 0.798022,
+    "positive_share_pct": 52.405016,
+    "negative_share_pct": 47.594984
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 2730.152,
+      "end_close": 2865.9032,
+      "weekly_return_pct": 4.972295
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 3179.6276,
+      "end_close": 3364.9297,
+      "weekly_return_pct": 5.827793
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 4563.2221,
+      "end_close": 5150.2288,
+      "weekly_return_pct": 12.863864
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 8055.7747,
+      "end_close": 8820.6029,
+      "weekly_return_pct": 9.494161
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 1550.3739,
+      "end_close": 1726.8587,
+      "weekly_return_pct": 11.38337
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}

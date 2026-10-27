@@ -8,6 +8,7 @@ import subprocess
 import sys
 from datetime import date, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,6 +37,9 @@ def main() -> int:
         return result.returncode or 1
 
     snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
+    if not snapshot.get("trading_dates"):
+        print(f"{snapshot['week_id']} 没有A股交易日（可能为整周休市）；不创建研究待办。")
+        return 0
     QUEUE_DIR.mkdir(parents=True, exist_ok=True)
     trading_dates = snapshot.get("trading_dates", [])
     if not trading_dates:
@@ -54,6 +58,7 @@ def main() -> int:
                 "- 待人工研究：按截止时点搜集政策、产业与公司公告；核对需求、利润落点、竞争壁垒及主题成员的历史有效性。",
                 "- 明确区分候选方向与确认主线；记录已计价预期、反证和下一周观察点。",
                 "- 不使用截止时间之后发布的信息解释当周行情。",
+                "- 当前自动化只生成行情快照和研究待办；主线搜索、来源核验及报告撰写仍须人工复核。",
                 "",
             ]
         ),
