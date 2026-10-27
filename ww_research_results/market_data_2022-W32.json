@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "week_id": "2022-W32",
+  "week_start": "2022-08-08",
+  "week_end_calendar_date": "2022-08-14",
+  "trading_dates": [
+    "2022-08-08",
+    "2022-08-09",
+    "2022-08-10",
+    "2022-08-11",
+    "2022-08-12"
+  ],
+  "baseline_trade_date": "2022-08-05",
+  "information_cutoff": "2022-08-12 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T22:31:50.447457+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2022-08-05": 4865,
+    "2022-08-08": 4870,
+    "2022-08-09": 4869,
+    "2022-08-10": 4869,
+    "2022-08-11": 4873,
+    "2022-08-12": 4876
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 4854,
+    "median_weekly_return_pct": 2.19365,
+    "positive_share_pct": 78.55377,
+    "negative_share_pct": 21.44623
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 3227.0267,
+      "end_close": 3276.8877,
+      "weekly_return_pct": 1.545107
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 4156.9111,
+      "end_close": 4191.152,
+      "weekly_return_pct": 0.82371
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 6270.5113,
+      "end_close": 6420.853,
+      "weekly_return_pct": 2.397599
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 12269.213,
+      "end_close": 12419.3906,
+      "weekly_return_pct": 1.22402
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 2683.602,
+      "end_close": 2690.8312,
+      "weekly_return_pct": 0.269384
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}
