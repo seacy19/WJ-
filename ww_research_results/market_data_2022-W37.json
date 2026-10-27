@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "week_id": "2022-W37",
+  "week_start": "2022-09-12",
+  "week_end_calendar_date": "2022-09-18",
+  "trading_dates": [
+    "2022-09-13",
+    "2022-09-14",
+    "2022-09-15",
+    "2022-09-16"
+  ],
+  "baseline_trade_date": "2022-09-09",
+  "information_cutoff": "2022-09-16 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T22:37:47.442293+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2022-09-09": 4922,
+    "2022-09-13": 4927,
+    "2022-09-14": 4924,
+    "2022-09-15": 4919,
+    "2022-09-16": 4923
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 4906,
+    "median_weekly_return_pct": -5.501529,
+    "positive_share_pct": 11.740726,
+    "negative_share_pct": 88.259274
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 3262.0542,
+      "end_close": 3126.3977,
+      "weekly_return_pct": -4.158622
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 4093.7874,
+      "end_close": 3932.6826,
+      "weekly_return_pct": -3.935348
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 6316.9724,
+      "end_close": 5954.5037,
+      "weekly_return_pct": -5.738013
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 11877.7872,
+      "end_close": 11261.4984,
+      "weekly_return_pct": -5.188583
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 2548.2159,
+      "end_close": 2367.3977,
+      "weekly_return_pct": -7.095874
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}
