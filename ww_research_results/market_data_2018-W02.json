@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "week_id": "2018-W02",
+  "week_start": "2018-01-08",
+  "week_end_calendar_date": "2018-01-14",
+  "trading_dates": [
+    "2018-01-08",
+    "2018-01-09",
+    "2018-01-10",
+    "2018-01-11",
+    "2018-01-12"
+  ],
+  "baseline_trade_date": "2018-01-05",
+  "information_cutoff": "2018-01-12 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T15:02:58.065734+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2018-01-05": 3297,
+    "2018-01-08": 3301,
+    "2018-01-09": 3302,
+    "2018-01-10": 3306,
+    "2018-01-11": 3311,
+    "2018-01-12": 3314
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 3251,
+    "median_weekly_return_pct": -1.053784,
+    "positive_share_pct": 35.250692,
+    "negative_share_pct": 64.749308
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 3391.7501,
+      "end_close": 3428.9407,
+      "weekly_return_pct": 1.096502
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 4138.7505,
+      "end_close": 4225.001,
+      "weekly_return_pct": 2.083974
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 6417.2537,
+      "end_close": 6399.3737,
+      "weekly_return_pct": -0.278624
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 11342.8477,
+      "end_close": 11461.9914,
+      "weekly_return_pct": 1.050386
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 1801.4185,
+      "end_close": 1785.705,
+      "weekly_return_pct": -0.872285
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}
