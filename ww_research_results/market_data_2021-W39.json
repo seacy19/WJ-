@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "week_id": "2021-W39",
+  "week_start": "2021-09-27",
+  "week_end_calendar_date": "2021-10-03",
+  "trading_dates": [
+    "2021-09-27",
+    "2021-09-28",
+    "2021-09-29",
+    "2021-09-30"
+  ],
+  "baseline_trade_date": "2021-09-24",
+  "information_cutoff": "2021-09-30 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T20:23:44.201040+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2021-09-24": 4613,
+    "2021-09-27": 4608,
+    "2021-09-28": 4603,
+    "2021-09-29": 4611,
+    "2021-09-30": 4617
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 4573,
+    "median_weekly_return_pct": -3.307375,
+    "positive_share_pct": 20.555434,
+    "negative_share_pct": 79.422698
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 3613.0673,
+      "end_close": 3568.1668,
+      "weekly_return_pct": -1.242725
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 4849.4277,
+      "end_close": 4866.3826,
+      "weekly_return_pct": 0.349627
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 7380.3843,
+      "end_close": 7103.6076,
+      "weekly_return_pct": -3.750167
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 14357.8459,
+      "end_close": 14309.0127,
+      "weekly_return_pct": -0.340115
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 3207.8166,
+      "end_close": 3244.6455,
+      "weekly_return_pct": 1.148099
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}
