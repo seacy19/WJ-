@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import csv
 import subprocess
 import sys
 from datetime import date, timedelta
@@ -58,6 +59,21 @@ def main() -> int:
         ),
         encoding="utf-8",
     )
+
+    backlog_path = RESULTS / "weekly_mainline_10y_backlog.csv"
+    with backlog_path.open("r", encoding="utf-8-sig", newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    updated = False
+    for row in rows:
+        if row.get("week_id") == week_id:
+            row["status"] = "行情快照与研究待办已自动生成，等待人工主线复盘"
+            updated = True
+            break
+    if updated:
+        with backlog_path.open("w", encoding="utf-8-sig", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=rows[0].keys(), lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(rows)
     return 0
 
 
