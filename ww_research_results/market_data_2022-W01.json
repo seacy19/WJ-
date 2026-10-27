@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "week_id": "2022-W01",
+  "week_start": "2022-01-03",
+  "week_end_calendar_date": "2022-01-09",
+  "trading_dates": [
+    "2022-01-04",
+    "2022-01-05",
+    "2022-01-06",
+    "2022-01-07"
+  ],
+  "baseline_trade_date": "2021-12-31",
+  "information_cutoff": "2022-01-07 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T21:17:42.167727+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2021-12-31": 4738,
+    "2022-01-04": 4737,
+    "2022-01-05": 4731,
+    "2022-01-06": 4735,
+    "2022-01-07": 4739
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 4704,
+    "median_weekly_return_pct": -0.899272,
+    "positive_share_pct": 41.581633,
+    "negative_share_pct": 58.418367
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 3639.7754,
+      "end_close": 3579.5427,
+      "weekly_return_pct": -1.654847
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 4940.3733,
+      "end_close": 4822.3689,
+      "weekly_return_pct": -2.388573
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 7359.4024,
+      "end_close": 7175.676,
+      "weekly_return_pct": -2.496485
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 14857.3453,
+      "end_close": 14343.6547,
+      "weekly_return_pct": -3.457486
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 3322.6725,
+      "end_close": 3096.8812,
+      "weekly_return_pct": -6.795473
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}
