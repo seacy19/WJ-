@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "week_id": "2019-W18",
+  "week_start": "2019-04-29",
+  "week_end_calendar_date": "2019-05-05",
+  "trading_dates": [
+    "2019-04-29",
+    "2019-04-30"
+  ],
+  "baseline_trade_date": "2019-04-26",
+  "information_cutoff": "2019-04-30 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T16:34:53.314309+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2019-04-26": 3616,
+    "2019-04-29": 3609,
+    "2019-04-30": 3586
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 3547,
+    "median_weekly_return_pct": -2.36857,
+    "positive_share_pct": 25.711869,
+    "negative_share_pct": 74.231745
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 3086.3989,
+      "end_close": 3078.3389,
+      "weekly_return_pct": -0.261146
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 3889.2748,
+      "end_close": 3913.211,
+      "weekly_return_pct": 0.615441
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 5408.0306,
+      "end_close": 5307.56,
+      "weekly_return_pct": -1.857804
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 9780.8219,
+      "end_close": 9674.5346,
+      "weekly_return_pct": -1.086691
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 1657.8243,
+      "end_close": 1623.7819,
+      "weekly_return_pct": -2.053438
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}
