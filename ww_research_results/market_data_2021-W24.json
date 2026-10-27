@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "week_id": "2021-W24",
+  "week_start": "2021-06-14",
+  "week_end_calendar_date": "2021-06-20",
+  "trading_dates": [
+    "2021-06-15",
+    "2021-06-16",
+    "2021-06-17",
+    "2021-06-18"
+  ],
+  "baseline_trade_date": "2021-06-11",
+  "information_cutoff": "2021-06-18 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T19:33:50.039298+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2021-06-11": 4418,
+    "2021-06-15": 4420,
+    "2021-06-16": 4421,
+    "2021-06-17": 4423,
+    "2021-06-18": 4424
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 4383,
+    "median_weekly_return_pct": -1.17648,
+    "positive_share_pct": 36.732831,
+    "negative_share_pct": 63.267169
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 3589.7481,
+      "end_close": 3525.0968,
+      "weekly_return_pct": -1.800998
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 5224.703,
+      "end_close": 5102.4657,
+      "weekly_return_pct": -2.339603
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 6725.9152,
+      "end_close": 6657.7635,
+      "weekly_return_pct": -1.01327
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 14801.2406,
+      "end_close": 14583.6676,
+      "weekly_return_pct": -1.469965
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 3298.4968,
+      "end_close": 3239.2267,
+      "weekly_return_pct": -1.796882
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}
