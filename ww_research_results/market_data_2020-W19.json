@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "week_id": "2020-W19",
+  "week_start": "2020-05-04",
+  "week_end_calendar_date": "2020-05-10",
+  "trading_dates": [
+    "2020-05-06",
+    "2020-05-07",
+    "2020-05-08"
+  ],
+  "baseline_trade_date": "2020-04-30",
+  "information_cutoff": "2020-05-08 15:00:00+08:00",
+  "retrieved_at_utc": "2026-10-27T17:23:53.669093+00:00",
+  "provider": "TuShare Pro",
+  "secret_saved": false,
+  "request_row_counts": {
+    "2020-04-30": 3861,
+    "2020-05-06": 3881,
+    "2020-05-07": 3874,
+    "2020-05-08": 3890
+  },
+  "market_breadth": {
+    "sample_rule": "A-share codes with a bar on the previous open day and every trading day in the selected week; compound pct_chg; exclude incomplete observations",
+    "complete_stock_count": 3812,
+    "median_weekly_return_pct": 2.106548,
+    "positive_share_pct": 82.161595,
+    "negative_share_pct": 17.812172
+  },
+  "indices": {
+    "000001.SH": {
+      "name": "上证综指",
+      "start_close": 2860.0822,
+      "end_close": 2895.3444,
+      "weekly_return_pct": 1.232909
+    },
+    "000300.SH": {
+      "name": "沪深300",
+      "start_close": 3912.5772,
+      "end_close": 3963.6217,
+      "weekly_return_pct": 1.304626
+    },
+    "000905.SH": {
+      "name": "中证500",
+      "start_close": 5353.8595,
+      "end_close": 5507.6965,
+      "weekly_return_pct": 2.873385
+    },
+    "399001.SZ": {
+      "name": "深证成指",
+      "start_close": 10721.7796,
+      "end_close": 11001.5794,
+      "weekly_return_pct": 2.60964
+    },
+    "399006.SZ": {
+      "name": "创业板指",
+      "start_close": 2069.4321,
+      "end_close": 2125.2433,
+      "weekly_return_pct": 2.696933
+    }
+  },
+  "limitations": [
+    "Stock returns are price returns based on daily pct_chg, not dividend-reinvested total returns.",
+    "Suspended stocks or codes missing any observation are excluded from the breadth sample.",
+    "This snapshot does not infer themes or industry rankings; historical taxonomy must be version-checked separately."
+  ]
+}
