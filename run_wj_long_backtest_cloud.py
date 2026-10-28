@@ -24,6 +24,7 @@ BENCHMARK_FILE = ROOT / os.environ.get("WJ_BENCHMARK_FILE", "index_benchmark_000
 RESULTS = ROOT / os.environ.get("WJ_RESULTS_SUBDIR", "results_2016_2025_clean_universe_technical_proxies")
 LIMIT_JSON_ROOT = ROOT / "market_data_2016_2025" / "stk_limit"
 LIMIT_PARQUET_ROOT = ROOT / "market_data_2016_2025" / "stk_limit_parquet"
+MINUTE_ROOT = ROOT / os.environ.get("WJ_5MIN_ROOT", "market_data_5min_b3_windows")
 DATA_START = os.environ.get("WJ_DATA_START", "20150101")
 BACKTEST_START = os.environ.get("WJ_BACKTEST_START", "20160104")
 END = os.environ.get("WJ_END", "20251231")
@@ -182,6 +183,34 @@ def main() -> None:
     b3_curve, b3_portfolio, b3_accepted = strategy.portfolio_curve(b3_trades, market_daily, config)
     trend_curve, trend_portfolio, trend_accepted = strategy.portfolio_curve(trend_trades, market_daily, config)
 
+    b3_5min_results = {}
+    if MINUTE_ROOT.exists():
+        for trail_mode, suffix in [
+            ("same_bar_peak_first", "same_bar_peak_first"),
+            ("prior_bar_peak", "prior_bar_peak"),
+        ]:
+            trades, counts = strategy.run_b3_5min_trade_simulations(
+                b3_signals, price_data, MINUTE_ROOT, config, trail_mode
+            )
+            strategy.add_benchmark_return(trades, market_daily)
+            curve, portfolio, accepted = strategy.portfolio_curve(trades, market_daily, config)
+            pd.DataFrame(strategy.serializable_trades(trades)).to_csv(
+                RESULTS / f"b3_5min_{suffix}_trades.csv", index=False, encoding="utf-8-sig"
+            )
+            pd.DataFrame(strategy.serializable_trades(accepted)).to_csv(
+                RESULTS / f"b3_5min_{suffix}_portfolio_trades.csv", index=False, encoding="utf-8-sig"
+            )
+            curve.to_csv(RESULTS / f"b3_5min_{suffix}_equity_curve.csv", encoding="utf-8-sig")
+            b3_5min_results[suffix] = {
+                "coverage": counts,
+                "candidate_trade_metrics": strategy.trade_metrics(trades),
+                "portfolio_metrics": portfolio,
+            }
+            print(
+                f"5MIN {suffix} coverage={counts} portfolio={portfolio}",
+                flush=True,
+            )
+
     b3_signals.to_csv(RESULTS / "b3_signals.csv", index=False, encoding="utf-8-sig")
     trend_signals.to_csv(RESULTS / "trend_signals.csv", index=False, encoding="utf-8-sig")
     pd.DataFrame(strategy.serializable_trades(b3_trades)).to_csv(RESULTS / "b3_trades.csv", index=False, encoding="utf-8-sig")
@@ -218,6 +247,7 @@ def main() -> None:
             "candidate_trade_metrics": strategy.trade_metrics(b3_trades),
             "portfolio_metrics": b3_portfolio,
         },
+        "b3_5min": b3_5min_results,
         "trend": {
             "signals": int(len(trend_signals)),
             "candidate_trade_metrics": strategy.trade_metrics(trend_trades),

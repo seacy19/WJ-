@@ -503,6 +503,227 @@ def simulate_short_trade(
     }
 
 
+def simulate_short_trade_5min(
+    signal: pd.Series,
+    frame: pd.DataFrame,
+    minute_frame: pd.DataFrame,
+    config: Config,
+    trail_mode: str = "same_bar_peak_first",
+) -> dict | None:
+    """Simulate B3 entry and exits from 5-minute bars.
+
+    Entry uses the first 5-minute bar open no more than 7% above the signal
+    day's adjusted close, matching the daily proxy. same_bar_peak_first treats
+    the current bar's high as occurring before its low; prior_bar_peak only
+    uses peaks known at the previous completed bar. These bracket intrabar order.
+    """
+    signal_date = str(signal["signal_date"])
+    entry_date = next_trade_date(frame, signal_date)
+    if entry_date is None or entry_date not in frame.index:
+        return None
+    entry_loc = frame.index.get_loc(entry_date)
+    if entry_loc <= 0:
+        return None
+
+    bars = minute_frame.copy()
+    bars["trade_date"] = bars["trade_time"].astype(str).str.slice(0, 10).str.replace("-", "", regex=False)
+    bars.sort_values("trade_time", inplace=True, ignore_index=True)
+    daily_entry = frame.loc[entry_date]
+    daily_entry_close = float(daily_entry["adj_close"])
+    daily_entry_raw_close = float(daily_entry["close"])
+    if daily_entry_raw_close <= 0 or daily_entry_close <= 0:
+        return None
+    entry_factor = daily_entry_close / daily_entry_raw_close
+    signal_close = float(frame.loc[signal_date, "adj_close"])
+    if not np.isfinite(signal_close) or signal_close <= 0:
+        return None
+
+    entry_day_bars = bars[bars["trade_date"] == entry_date].sort_values("trade_time")
+    if entry_day_bars.empty:
+        return None
+    entry_bar = entry_day_bars.iloc[0]
+    raw_open = float(entry_bar["open"])
+    adjusted_open = raw_open * entry_factor
+    if not np.isfinite(adjusted_open) or adjusted_open <= 0 or adjusted_open / signal_close - 1 > 0.07:
+        return None
+
+    entry_date_time = str(entry_bar["trade_time"])
+    entry_raw = float(entry_bar["open"])
+    entry = entry_raw * entry_factor
+    stop = entry * 0.95
+    peak = entry
+    entry_index = bars.index[bars["trade_time"].astype(str) == entry_date_time]
+    if len(entry_index) != 1:
+        return None
+
+    planned_end_loc = entry_loc + 6
+    sample_truncated = planned_end_loc >= len(frame)
+    end_loc = min(planned_end_loc, len(frame) - 1)
+    holding_dates = [str(x) for x in frame.index[entry_loc : end_loc + 1]]
+    holding_set = set(holding_dates)
+    bars = bars[bars["trade_date"].isin(holding_set)].copy()
+    bars.sort_values("trade_time", inplace=True, ignore_index=True)
+    bars = bars[bars["trade_time"].astype(str) >= entry_date_time]
+
+    path: dict[str, float] = {}
+    pending_exit = False
+    exit_date = holding_dates[-1]
+    exit_time = ""
+    exit_price = float(frame.loc[exit_date, "adj_close"])
+    exit_raw = float(frame.loc[exit_date, "close"])
+    reason = "7日上限"
+    holding_days = len(holding_dates)
+
+    for day_num, date in enumerate(holding_dates, start=1):
+        day_bars = bars[bars["trade_date"] == date]
+        if day_bars.empty:
+            continue
+        day_bars = day_bars.sort_values("trade_time")
+        daily_row = frame.loc[date]
+        daily_raw_close = float(daily_row["close"])
+        daily_adj_close = float(daily_row["adj_close"])
+        if daily_raw_close <= 0:
+            continue
+        day_factor = daily_adj_close / daily_raw_close
+
+        if pending_exit:
+            first_bar = day_bars.iloc[0]
+            exit_date = date
+            exit_time = str(first_bar["trade_time"])
+            exit_raw = float(first_bar["open"])
+            exit_price = exit_raw * day_factor
+            reason = "时间/MA5退出"
+            path[date] = exit_price / entry - config.round_trip_cost
+            break
+
+        exited = False
+        for _, bar in day_bars.iterrows():
+            raw_open, raw_high, raw_low = map(float, [bar["open"], bar["high"], bar["low"]])
+            bar_open, bar_high, bar_low = raw_open * day_factor, raw_high * day_factor, raw_low * day_factor
+            if trail_mode not in ("same_bar_peak_first", "prior_bar_peak"):
+                raise ValueError(f"unsupported trail_mode: {trail_mode}")
+
+            prior_active_stop = max(stop, peak * 0.95)
+            prior_stop_reason = "买入后最高价回撤5%" if prior_active_stop > stop + 1e-10 else "-5%硬止损"
+            if bar_open <= prior_active_stop:
+                exit_date = date
+                exit_time = str(bar["trade_time"])
+                exit_raw = raw_open
+                exit_price = exit_raw * day_factor
+                reason = prior_stop_reason
+                path[date] = exit_price / entry - config.round_trip_cost
+                exited = True
+                break
+
+            if trail_mode == "same_bar_peak_first":
+                peak = max(peak, bar_high)
+                active_stop = max(stop, peak * 0.95)
+                if bar_low <= active_stop:
+                    exit_date = date
+                    exit_time = str(bar["trade_time"])
+                    exit_raw = active_stop / day_factor
+                    exit_price = exit_raw * day_factor
+                    reason = "买入后最高价回撤5%" if active_stop > stop + 1e-10 else "-5%硬止损"
+                    path[date] = exit_price / entry - config.round_trip_cost
+                    exited = True
+                    break
+            else:
+                if bar_low <= prior_active_stop:
+                    exit_date = date
+                    exit_time = str(bar["trade_time"])
+                    exit_raw = prior_active_stop / day_factor
+                    exit_price = exit_raw * day_factor
+                    reason = prior_stop_reason
+                    path[date] = exit_price / entry - config.round_trip_cost
+                    exited = True
+                    break
+                peak = max(peak, bar_high)
+
+        if exited:
+            break
+
+        last_bar = day_bars.iloc[-1]
+        day_close_raw = float(last_bar["close"])
+        day_close_adj = day_close_raw * day_factor
+        held = day_num
+        if held >= 7:
+            exit_date = date
+            exit_time = str(last_bar["trade_time"])
+            exit_raw = day_close_raw
+            exit_price = day_close_adj
+            reason = "7日上限"
+            path[date] = exit_price / entry - config.round_trip_cost
+            break
+
+        if sample_truncated and date == holding_dates[-1]:
+            exit_date = date
+            exit_time = str(last_bar["trade_time"])
+            exit_raw = day_close_raw
+            exit_price = day_close_adj
+            reason = "样本结束持有"
+            path[date] = exit_price / entry - config.round_trip_cost
+            break
+
+        path[date] = day_close_adj / entry - config.round_trip_cost / 2
+        below_ma5 = np.isfinite(daily_row["ma5"]) and daily_adj_close < float(daily_row["ma5"])
+        weak_after_three = held >= 3 and daily_adj_close / entry - 1 < 0.02
+        if below_ma5 or weak_after_three:
+            pending_exit = True
+
+    final_factor = path.get(exit_date)
+    if final_factor is None:
+        final_factor = exit_price / entry - config.round_trip_cost
+        path[exit_date] = final_factor
+    return {
+        **signal.to_dict(),
+        "entry_date": entry_date,
+        "entry_time": entry_date_time,
+        "entry_price": entry,
+        "entry_price_raw": entry_raw,
+        "exit_date": exit_date,
+        "exit_time": exit_time,
+        "exit_price": exit_price,
+        "exit_price_raw": exit_raw,
+        "holding_days": list(frame.index).index(exit_date) - entry_loc + 1,
+        "net_return": final_factor - 1.0,
+        "exit_reason": reason,
+        "trail_mode": trail_mode,
+        "path": path,
+    }
+
+
+def run_b3_5min_trade_simulations(
+    signals: pd.DataFrame,
+    price_data: dict[str, pd.DataFrame],
+    minute_root: Path,
+    config: Config,
+    trail_mode: str,
+) -> tuple[list[dict], dict]:
+    if signals.empty:
+        return [], {"signals": 0, "missing_minute_window": 0, "no_entry_over_7pct": 0}
+    trades: list[dict] = []
+    last_exit: dict[str, str] = {}
+    counts = {"signals": len(signals), "missing_minute_window": 0, "no_entry_over_7pct": 0}
+    for _, signal in signals.sort_values(["signal_date", "score"], ascending=[True, False]).iterrows():
+        code = str(signal["code"])
+        signal_date = str(signal["signal_date"])
+        frame = price_data.get(code)
+        if frame is None or (code in last_exit and signal_date <= last_exit[code]):
+            continue
+        minute_path = minute_root / f"year={signal_date[:4]}" / f"{code}_{signal_date}.csv.gz"
+        if not minute_path.exists():
+            counts["missing_minute_window"] += 1
+            continue
+        minute_frame = pd.read_csv(minute_path, compression="gzip")
+        trade = simulate_short_trade_5min(signal, frame, minute_frame, config, trail_mode)
+        if trade is None:
+            counts["no_entry_over_7pct"] += 1
+            continue
+        trades.append(trade)
+        last_exit[code] = str(trade["exit_date"])
+    return trades, counts
+
+
 def simulate_trend_trade(
     signal: pd.Series,
     frame: pd.DataFrame,
