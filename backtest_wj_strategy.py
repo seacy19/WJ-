@@ -199,6 +199,10 @@ def build_signals(
         g["prev_high20"] = c.shift(1).rolling(20, min_periods=15).max()
         g["prev_low20"] = c.shift(1).rolling(20, min_periods=15).min()
         g["ret10"] = c / c.shift(10) - 1.0
+        # A leader that has already broken down should not continue to trigger
+        # follower entries. Use only information available by that session close.
+        g["leader_peak10"] = c.rolling(10, min_periods=10).max()
+        g["leader_drawdown10"] = c / g["leader_peak10"] - 1.0
         g["ret20_pre"] = c.shift(1) / c.shift(21) - 1.0
         g["vol_ratio"] = vol / vol.shift(1).rolling(5, min_periods=5).mean()
         g["amount20"] = amount.shift(1).rolling(20, min_periods=15).mean()
@@ -211,6 +215,13 @@ def build_signals(
         )
         threshold = limit_threshold(code)
         g["limit_up"] = g["pct_chg"].astype(float) >= threshold
+        if "up_limit" in g.columns:
+            actual_up = pd.to_numeric(g["up_limit"], errors="coerce")
+            has_actual_limit = actual_up.notna() & (actual_up > 0)
+            g.loc[has_actual_limit, "limit_up"] = (
+                g.loc[has_actual_limit, "close"].astype(float)
+                >= actual_up.loc[has_actual_limit].astype(float) - 0.005
+            )
         g["limit_streak"] = consecutive_true(g["limit_up"].fillna(False).to_numpy())
         prior_qualified = (g["ret10"].shift(1) >= 0.50) | (g["limit_streak"].shift(1) >= 6)
         high_open_fade = (
@@ -240,6 +251,8 @@ def build_signals(
                     "leader_code": code,
                     "leader_name": name,
                     "leader_ret10": float(g.at[i, "ret10"]),
+                    "leader_drawdown10": float(g.at[i, "leader_drawdown10"]),
+                    "leader_close_below_ma5": bool(g.at[i, "adj_close"] < g.at[i, "ma5"]),
                 }
             )
 
@@ -325,6 +338,55 @@ def build_signals(
             on=["signal_date", "industry"],
             how="inner",
         )
+        # Leader exhaustion filter: reject leaders more than 15% below their
+        # 10-session closing high, or closing below MA5. This is evaluated on
+        # signal date, before the follower's next-session entry.
+        b3_signals = b3_signals[
+            (b3_signals["leader_drawdown10"] >= -0.15)
+            & ~b3_signals["leader_close_below_ma5"]
+        ]
+        # Recheck the leader at the follower's planned next-session entry.
+        # Skip if the leader gaps down 5% or opens below the prior-session MA5.
+        entry_checks = []
+        for _, candidate in b3_signals.iterrows():
+            leader_frame = price_data.get(str(candidate["leader_code"]))
+            signal_date = str(candidate["signal_date"])
+            entry_date = (
+                next_trade_date(leader_frame, signal_date)
+                if leader_frame is not None
+                else None
+            )
+            if entry_date is None or signal_date not in leader_frame.index:
+                entry_checks.append((np.nan, False, False))
+                continue
+            prior = leader_frame.loc[signal_date]
+            entry_row = leader_frame.loc[entry_date]
+            open_px = float(entry_row["adj_open"])
+            prior_close = float(prior["adj_close"])
+            prior_ma5 = float(prior["ma5"])
+            gap_return = open_px / prior_close - 1.0
+            entry_checks.append(
+                (
+                    gap_return,
+                    bool(np.isfinite(prior_ma5) and open_px < prior_ma5),
+                    bool(gap_return <= -0.05),
+                )
+            )
+        b3_signals = b3_signals.copy()
+        entry_audit = pd.DataFrame(
+            entry_checks,
+            index=b3_signals.index,
+            columns=[
+                "leader_entry_gap",
+                "leader_entry_below_ma5",
+                "leader_entry_gap_down",
+            ],
+        )
+        b3_signals = b3_signals.join(entry_audit)
+        b3_signals = b3_signals[
+            ~b3_signals["leader_entry_below_ma5"]
+            & ~b3_signals["leader_entry_gap_down"]
+        ]
         b3_signals = b3_signals[b3_signals["code"] != b3_signals["leader_code"]]
         b3_signals = (
             b3_signals.sort_values(["signal_date", "score"], ascending=[True, False])

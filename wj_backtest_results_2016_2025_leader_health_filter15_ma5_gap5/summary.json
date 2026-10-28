@@ -1,0 +1,93 @@
+{
+  "config": {
+    "data_start": "20150101",
+    "backtest_start": "20160104",
+    "end": "20251231",
+    "round_trip_cost": 0.003,
+    "max_positions": 10
+  },
+  "data": {
+    "rows": 10437047,
+    "codes": 5703,
+    "first_date": "20150105",
+    "last_date": "20251231",
+    "price_source": "/home/ubuntu/ww-cache/wj_long_backtest/prices",
+    "metadata_source": "/home/ubuntu/ww-cache/wj_long_backtest/stock_basic_all.csv",
+    "duplicates": 0
+  },
+  "methodology": {
+    "b3": "same-current-industry leader-break proxy + low-base/volume filters; leader-health gate: signal close drawdown from 10-session closing high <=15%, close >= MA5, next-session open >= prior MA5 and overnight gap > -5%; next-open follower entry; -5% stop, partial +10% target and short time/MA exits",
+    "trend": "C.3/C.4 price/volume breakout proxy only; next-open entry; -8% initial stop and 20-day/platform exit; no fundamental screen",
+    "universe": "rows outside listing/delisting dates and recorded historical ST intervals excluded; current name marker stripped to avoid excluding a security from all prior years",
+    "industry": "current TuShare stock_basic industry used as a proxy, not historical WJ theme membership",
+    "limit_up": "official historical stk_limit up_limit used when available; pct_chg threshold fallback only where that field is absent",
+    "cost": "0.30% round trip per trade",
+    "portfolio": "separate branch portfolios; max 10 positions each",
+    "benchmark": "CSI All Share index 000985.CSI daily returns from index_benchmark_000985_CSI_2016_2025.csv; first backtest date starts at that session close",
+    "mainline_labels": "weekly labels and fundamental criteria not used for selection because historical security/theme mapping and point-in-time fundamentals are unavailable",
+    "leader_health_filter": {
+      "signal_day_max_drawdown_from_10_close_high": 0.15,
+      "signal_day_close_must_be_at_or_above_MA5": true,
+      "entry_day_open_must_be_at_or_above_prior_MA5": true,
+      "minimum_overnight_gap": -0.05
+    }
+  },
+  "b3": {
+    "signals": 1178,
+    "candidate_trade_metrics": {
+      "trades": 1151,
+      "win_rate": 0.39009556907037357,
+      "mean_return": -0.003614571625863098,
+      "median_return": -0.008555584085632506,
+      "mean_excess": -0.003467189751073957,
+      "avg_win": 0.029639220470264058,
+      "avg_loss": -0.0248837349466054,
+      "profit_factor": 0.7618341551358004,
+      "best": 0.18615027136249784,
+      "worst": -0.13144040882437036,
+      "avg_holding_days": 2.740225890529974,
+      "open_at_end": 0
+    },
+    "portfolio_metrics": {
+      "accepted_trades": 1139,
+      "total_return": -0.3401779877211092,
+      "annualized_return": -0.04089010839104934,
+      "max_drawdown": -0.3818491509948837,
+      "annualized_volatility": 0.05260224640503677,
+      "sharpe_zero_rf": -0.7773452881878069,
+      "benchmark_total_return": 0.14799739999426076,
+      "excess_total_return": -0.48817538771536995,
+      "average_position_count": 0.8139917695473251,
+      "max_position_count": 9
+    }
+  },
+  "trend": {
+    "signals": 30492,
+    "candidate_trade_metrics": {
+      "trades": 20756,
+      "win_rate": 0.23670264020042397,
+      "mean_return": -0.006782737672379378,
+      "median_return": -0.03624855838589319,
+      "mean_excess": -0.006193289665410476,
+      "avg_win": 0.1416148994837314,
+      "avg_loss": -0.052801647686137654,
+      "profit_factor": 0.831707878370299,
+      "best": 2.8751075866585936,
+      "worst": -0.2545441106300441,
+      "avg_holding_days": 12.100982848333013,
+      "open_at_end": 142
+    },
+    "portfolio_metrics": {
+      "accepted_trades": 1749,
+      "total_return": -0.7573021209809576,
+      "annualized_return": -0.1325318487012831,
+      "max_drawdown": -0.8319660016136741,
+      "annualized_volatility": 0.26226541638592116,
+      "sharpe_zero_rf": -0.5053348265570162,
+      "benchmark_total_return": 0.14799739999426076,
+      "excess_total_return": -0.9052995209752184,
+      "average_position_count": 8.595061728395061,
+      "max_position_count": 10
+    }
+  }
+}
