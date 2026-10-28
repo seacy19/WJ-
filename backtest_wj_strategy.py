@@ -424,11 +424,9 @@ def simulate_short_trade(
         return None
 
     stop = entry * 0.95
-    target = entry * 1.10
     remaining = 1.0
     cash_factor = 0.0
     peak = entry
-    target_hit = False
     path: dict[str, float] = {}
     reason = "样本结束"
     exit_date = str(frame.index[-1])
@@ -449,36 +447,23 @@ def simulate_short_trade(
             cash_factor += remaining * exit_price / entry
             remaining = 0.0
         elif remaining > 0:
-            # If stop and target are both touched before any target activation,
-            # take the adverse ordering to avoid optimistic bar-path assumptions.
-            if not target_hit and day_low <= stop and day_high >= target:
-                exit_price = stop if day_open > stop else day_open
-                exit_date = date
-                reason = "同日双触发-按止损优先"
-                cash_factor += remaining * exit_price / entry
-                remaining = 0.0
-            elif not target_hit and day_low <= stop:
+            if day_low <= stop:
                 exit_price = stop if day_open > stop else day_open
                 exit_date = date
                 reason = "-5%硬止损"
                 cash_factor += remaining * exit_price / entry
                 remaining = 0.0
             else:
-                if not target_hit and day_high >= target:
-                    cash_factor += 0.5 * target / entry
-                    remaining -= 0.5
-                    target_hit = True
-                    peak = max(target, day_high)
-                elif target_hit:
-                    peak = max(peak, day_high)
-                if target_hit and remaining > 0:
-                    trail = peak * 0.97
-                    if day_low <= trail:
-                        exit_price = day_open if day_open < trail else trail
-                        exit_date = date
-                        reason = "+10%后回撤3%"
-                        cash_factor += remaining * exit_price / entry
-                        remaining = 0.0
+                peak = max(peak, day_high)
+                trail = peak * 0.95
+                # OHLC bars do not reveal whether the high came before the low;
+                # if both imply a trail touch, conservatively assume it did.
+                if day_open <= trail or day_low <= trail:
+                    exit_price = day_open if day_open <= trail else trail
+                    exit_date = date
+                    reason = "买入后最高价回撤5%"
+                    cash_factor += remaining * exit_price / entry
+                    remaining = 0.0
 
         if remaining > 0:
             path[date] = cash_factor + remaining * day_close / entry - config.round_trip_cost / 2

@@ -203,7 +203,7 @@ def main() -> None:
             "duplicates": 0,
         },
         "methodology": {
-    "b3": "same-current-industry leader-break proxy + low-base/volume filters; leader-health gate: signal close drawdown from 10-session closing high <=15%, close >= MA5, next-session open >= prior MA5 and overnight gap > -5%; next-open follower entry; -5% stop, partial +10% target and short time/MA exits",
+    "b3": "same-current-industry leader-break proxy + low-base/volume filters; leader-health gate: signal close drawdown from 10-session closing high <=15%, close >= MA5, next-session open >= prior MA5 and overnight gap > -5%; next-open follower entry; -5% hard stop, all-out trailing exit on 5% drawdown from peak since entry, and short time/MA exits",
             "trend": "C.3/C.4 price/volume breakout proxy only; next-open entry; -8% initial stop and 20-day/platform exit; no fundamental screen",
             "universe": "rows outside listing/delisting dates and recorded historical ST intervals excluded; current name marker stripped to avoid excluding a security from all prior years",
             "industry": "current TuShare stock_basic industry used as a proxy, not historical WJ theme membership",
