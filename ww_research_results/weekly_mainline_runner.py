@@ -1,4 +1,4 @@
-"""Weekly helper: create the prior completed week's market snapshot and research queue."""
+"""Create a snapshot and research queue for the latest completed A-share week."""
 
 from __future__ import annotations
 
@@ -37,7 +37,7 @@ def main() -> int:
             pass
     today = date.fromisoformat(args.as_of_date) if args.as_of_date else datetime.now(ZoneInfo("Asia/Shanghai")).date()
     this_monday = today - timedelta(days=today.weekday())
-    week_start = this_monday
+    week_start = this_monday if today.weekday() == 6 else this_monday - timedelta(days=7)
     week_end = week_start + timedelta(days=6)
     snapshot_path = RESULTS / f"market_data_{week_start.isocalendar().year}-W{week_start.isocalendar().week:02d}.json"
 
