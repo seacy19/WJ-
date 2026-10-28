@@ -91,7 +91,9 @@ def main() -> int:
     updated = False
     for row in rows:
         if row.get("week_id") == week_id:
-            row["status"] = "行情快照与研究待办已自动生成，等待人工主线复盘"
+            status = row.get("status", "")
+            if "完成" not in status and "休市" not in status:
+                row["status"] = "行情快照与研究待办已自动生成，等待人工主线复盘"
             updated = True
             break
     if not updated:
