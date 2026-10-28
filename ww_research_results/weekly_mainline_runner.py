@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+import argparse
+import os
 import json
 import csv
 import subprocess
 import sys
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -18,7 +20,22 @@ QUEUE_DIR = RESULTS / "weekly_mainline_pending"
 
 
 def main() -> int:
-    today = date.today()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--as-of-date",
+        help="Optional local date (YYYY-MM-DD), mainly for controlled backfills.",
+    )
+    args = parser.parse_args()
+    if not os.environ.get("TUSHARE_TOKEN"):
+        import winreg
+
+        try:
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as key:
+                token, _ = winreg.QueryValueEx(key, "TUSHARE_TOKEN")
+            os.environ["TUSHARE_TOKEN"] = token
+        except OSError:
+            pass
+    today = date.fromisoformat(args.as_of_date) if args.as_of_date else datetime.now(ZoneInfo("Asia/Shanghai")).date()
     this_monday = today - timedelta(days=today.weekday())
     week_start = this_monday - timedelta(days=7)
     week_end = week_start + timedelta(days=6)
