@@ -89,14 +89,19 @@ def main() -> int:
     with backlog_path.open("r", encoding="utf-8-sig", newline="") as stream:
         rows = list(csv.DictReader(stream))
     updated = False
+    backlog_changed = False
     for row in rows:
         if row.get("week_id") == week_id:
             status = row.get("status", "")
             if "完成" not in status and "休市" not in status:
-                row["status"] = "行情快照与研究待办已自动生成，等待人工主线复盘"
+                new_status = "行情快照与研究待办已自动生成，等待人工主线复盘"
+                if status != new_status:
+                    row["status"] = new_status
+                    backlog_changed = True
             updated = True
             break
     if not updated:
+        backlog_changed = True
         rows.append(
             {
                 "week_id": week_id,
@@ -112,10 +117,11 @@ def main() -> int:
                 ),
             }
         )
-    with backlog_path.open("w", encoding="utf-8-sig", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=rows[0].keys(), lineterminator="\n")
-        writer.writeheader()
-        writer.writerows(rows)
+    if backlog_changed:
+        with backlog_path.open("w", encoding="utf-8-sig", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=rows[0].keys(), lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(rows)
     return 0
 
 
