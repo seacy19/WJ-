@@ -37,7 +37,7 @@ def main() -> int:
             pass
     today = date.fromisoformat(args.as_of_date) if args.as_of_date else datetime.now(ZoneInfo("Asia/Shanghai")).date()
     this_monday = today - timedelta(days=today.weekday())
-    week_start = this_monday - timedelta(days=7)
+    week_start = this_monday
     week_end = week_start + timedelta(days=6)
     snapshot_path = RESULTS / f"market_data_{week_start.isocalendar().year}-W{week_start.isocalendar().week:02d}.json"
 
