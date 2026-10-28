@@ -4,9 +4,9 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$repo = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
+$repo = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $runner = Join-Path $PSScriptRoot "weekly_mainline_runner.py"
-$action = New-ScheduledTaskAction -Execute $Python -Argument "`"$runner`" *> `"$PSScriptRoot\weekly_mainline_task.log`" 2>&1" -WorkingDirectory $repo
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\run_weekly_mainline_task.ps1`" -Python `"$Python`"" -WorkingDirectory $repo
 $trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Friday -At 4:10PM
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 2)
 Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger -Settings $settings -Description "After Friday close, create a point-in-time bounded A-share weekly market snapshot and manual research queue." -Force | Out-Null

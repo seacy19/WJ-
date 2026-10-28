@@ -49,9 +49,12 @@ def main() -> int:
         "--week-end",
         week_end.isoformat(),
     ]
-    result = subprocess.run(command, cwd=ROOT, check=False)
-    if result.returncode != 0 or not snapshot_path.exists():
-        return result.returncode or 1
+    if not snapshot_path.exists():
+        result = subprocess.run(command, cwd=ROOT, check=False)
+        if result.returncode != 0 or not snapshot_path.exists():
+            return result.returncode or 1
+    else:
+        print(f"复用已存在的行情快照：{snapshot_path.name}")
 
     snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
     if not snapshot.get("trading_dates"):
