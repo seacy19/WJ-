@@ -512,8 +512,9 @@ def simulate_short_trade_5min(
 ) -> dict | None:
     """Simulate B3 entry and exits from 5-minute bars.
 
-    Entry uses the first 5-minute bar open no more than 7% above the signal
-    day's adjusted close, matching the daily proxy. same_bar_peak_first treats
+    Entry follows B.5: buy at the first open at or below +2% from the signal
+    close, or place a limit fill at +2% when a 5-minute low first reaches it.
+    same_bar_peak_first treats
     the current bar's high as occurring before its low; prior_bar_peak only
     uses peaks known at the previous completed bar. These bracket intrabar order.
     """
@@ -541,20 +542,30 @@ def simulate_short_trade_5min(
     entry_day_bars = bars[bars["trade_date"] == entry_date].sort_values("trade_time")
     if entry_day_bars.empty:
         return None
-    entry_bar = entry_day_bars.iloc[0]
-    raw_open = float(entry_bar["open"])
-    adjusted_open = raw_open * entry_factor
-    if not np.isfinite(adjusted_open) or adjusted_open <= 0 or adjusted_open / signal_close - 1 > 0.07:
+    entry_limit = signal_close * 1.02
+    entry_bar = None
+    entry_at_open = False
+    entry = np.nan
+    for _, candidate_bar in entry_day_bars.iterrows():
+        candidate_open = float(candidate_bar["open"]) * entry_factor
+        candidate_low = float(candidate_bar["low"]) * entry_factor
+        if np.isfinite(candidate_open) and candidate_open > 0 and candidate_open <= entry_limit:
+            entry_bar = candidate_bar
+            entry = candidate_open
+            entry_at_open = True
+            break
+        if np.isfinite(candidate_low) and candidate_low > 0 and candidate_low <= entry_limit:
+            entry_bar = candidate_bar
+            entry = entry_limit
+            break
+    if entry_bar is None:
         return None
 
     entry_date_time = str(entry_bar["trade_time"])
-    entry_raw = float(entry_bar["open"])
-    entry = entry_raw * entry_factor
+    entry_raw = entry / entry_factor
+    entry_fill_type = "bar_open" if entry_at_open else "2pct_limit_touch"
     stop = entry * 0.95
     peak = entry
-    entry_index = bars.index[bars["trade_time"].astype(str) == entry_date_time]
-    if len(entry_index) != 1:
-        return None
 
     planned_end_loc = entry_loc + 6
     sample_truncated = planned_end_loc >= len(frame)
@@ -600,6 +611,20 @@ def simulate_short_trade_5min(
         for _, bar in day_bars.iterrows():
             raw_open, raw_high, raw_low = map(float, [bar["open"], bar["high"], bar["low"]])
             bar_open, bar_high, bar_low = raw_open * day_factor, raw_high * day_factor, raw_low * day_factor
+            is_entry_bar = str(bar["trade_time"]) == entry_date_time
+            if is_entry_bar and not entry_at_open:
+                # The +2% limit is reached on a downward move in this bar.
+                # Its high can precede the fill, so do not count it as a post-entry peak.
+                if bar_low <= stop:
+                    exit_date = date
+                    exit_time = str(bar["trade_time"])
+                    exit_raw = stop / day_factor
+                    exit_price = stop
+                    reason = "-5%硬止损"
+                    path[date] = exit_price / entry - config.round_trip_cost
+                    exited = True
+                    break
+                continue
             if trail_mode not in ("same_bar_peak_first", "prior_bar_peak"):
                 raise ValueError(f"unsupported trail_mode: {trail_mode}")
 
@@ -678,6 +703,7 @@ def simulate_short_trade_5min(
         **signal.to_dict(),
         "entry_date": entry_date,
         "entry_time": entry_date_time,
+        "entry_fill_type": entry_fill_type,
         "entry_price": entry,
         "entry_price_raw": entry_raw,
         "exit_date": exit_date,
@@ -700,10 +726,10 @@ def run_b3_5min_trade_simulations(
     trail_mode: str,
 ) -> tuple[list[dict], dict]:
     if signals.empty:
-        return [], {"signals": 0, "missing_minute_window": 0, "no_entry_over_7pct": 0}
+        return [], {"signals": 0, "missing_minute_window": 0, "no_entry_within_2pct": 0}
     trades: list[dict] = []
     last_exit: dict[str, str] = {}
-    counts = {"signals": len(signals), "missing_minute_window": 0, "no_entry_over_7pct": 0}
+    counts = {"signals": len(signals), "missing_minute_window": 0, "no_entry_within_2pct": 0}
     for _, signal in signals.sort_values(["signal_date", "score"], ascending=[True, False]).iterrows():
         code = str(signal["code"])
         signal_date = str(signal["signal_date"])
@@ -717,7 +743,7 @@ def run_b3_5min_trade_simulations(
         minute_frame = pd.read_csv(minute_path, compression="gzip")
         trade = simulate_short_trade_5min(signal, frame, minute_frame, config, trail_mode)
         if trade is None:
-            counts["no_entry_over_7pct"] += 1
+            counts["no_entry_within_2pct"] += 1
             continue
         trades.append(trade)
         last_exit[code] = str(trade["exit_date"])
