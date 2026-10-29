@@ -16,7 +16,7 @@
     "duplicates": 0
   },
   "methodology": {
-    "b3": "same-current-industry leader-break proxy + low-base/volume filters; leader-health gate: signal close drawdown from 10-session closing high <=15%, close >= MA5, next-session open >= prior MA5 and overnight gap > -5%; daily baseline uses next-open entry capped at +7%, while 5-minute B.5 execution enters next session at the first open <=+2% or at a +2% limit touch; -5% hard stop, all-out trailing exit on 5% drawdown from peak since entry, and short time/MA exits",
+    "b3": "same-current-industry leader-break proxy + low-base/volume filters; leader-health gate: signal close drawdown from 10-session closing high <=15%, close >= MA5, next-session open >= prior MA5 and overnight gap > -5%; daily baseline uses next-open entry capped at +7%; 5-minute B.5 execution enters next session at the first open <=+2% or at a +2% limit touch; active trailing exit uses only the previous completed 5-minute bar peak, with a -5% hard stop and short time/MA exits",
     "trend": "C.3/C.4 price/volume breakout proxy only; next-open entry; -8% initial stop and 20-day/platform exit; no fundamental screen",
     "universe": "rows outside listing/delisting dates and recorded historical ST intervals excluded; current name marker stripped to avoid excluding a security from all prior years",
     "industry": "current TuShare stock_basic industry used as a proxy, not historical WJ theme membership",
@@ -56,71 +56,37 @@
     }
   },
   "b3_5min": {
-    "same_bar_peak_first": {
-      "coverage": {
-        "signals": 1178,
-        "missing_minute_window": 2,
-        "no_entry_within_2pct": 10
-      },
-      "candidate_trade_metrics": {
-        "trades": 1146,
-        "win_rate": 0.39267015706806285,
-        "mean_return": -0.001719931584307866,
-        "median_return": -0.008112528686835596,
-        "mean_excess": -0.0017024794932424985,
-        "avg_win": 0.03143340531971446,
-        "avg_loss": -0.0231552787205292,
-        "profit_factor": 0.8776971614239036,
-        "best": 0.49875641753117383,
-        "worst": -0.13144037119834395,
-        "avg_holding_days": 2.549738219895288,
-        "open_at_end": 7
-      },
-      "portfolio_metrics": {
-        "accepted_trades": 1135,
-        "total_return": -0.1896153128665019,
-        "annualized_return": -0.020889862956710803,
-        "max_drawdown": -0.29436462647645534,
-        "annualized_volatility": 0.054559005760840516,
-        "sharpe_zero_rf": -0.3828856971529421,
-        "benchmark_total_return": 0.14799739999426076,
-        "excess_total_return": -0.33761271286076266,
-        "average_position_count": 0.723045267489712,
-        "max_position_count": 9
-      }
+    "execution_path": "prior_bar_peak",
+    "coverage": {
+      "signals": 1178,
+      "missing_minute_window": 2,
+      "no_entry_within_2pct": 10
     },
-    "prior_bar_peak": {
-      "coverage": {
-        "signals": 1178,
-        "missing_minute_window": 2,
-        "no_entry_within_2pct": 10
-      },
-      "candidate_trade_metrics": {
-        "trades": 1146,
-        "win_rate": 0.39790575916230364,
-        "mean_return": 0.0003808544564358954,
-        "median_return": -0.007904250142382885,
-        "mean_excess": 0.00041741498391737456,
-        "avg_win": 0.03615556909379348,
-        "avg_loss": -0.023261565651730858,
-        "profit_factor": 1.0271929063134544,
-        "best": 0.49875641753117383,
-        "worst": -0.13144037119834395,
-        "avg_holding_days": 2.582024432809773,
-        "open_at_end": 7
-      },
-      "portfolio_metrics": {
-        "accepted_trades": 1134,
-        "total_return": 0.028985935893764303,
-        "annualized_return": 0.0028732575773124935,
-        "max_drawdown": -0.19693772772664242,
-        "annualized_volatility": 0.05861235664426022,
-        "sharpe_zero_rf": 0.0490213624193844,
-        "benchmark_total_return": 0.14799739999426076,
-        "excess_total_return": -0.11901146410049646,
-        "average_position_count": 0.7378600823045267,
-        "max_position_count": 10
-      }
+    "candidate_trade_metrics": {
+      "trades": 1146,
+      "win_rate": 0.39790575916230364,
+      "mean_return": 0.0003808544564358954,
+      "median_return": -0.007904250142382885,
+      "mean_excess": 0.00041741498391737456,
+      "avg_win": 0.03615556909379348,
+      "avg_loss": -0.023261565651730858,
+      "profit_factor": 1.0271929063134544,
+      "best": 0.49875641753117383,
+      "worst": -0.13144037119834395,
+      "avg_holding_days": 2.582024432809773,
+      "open_at_end": 7
+    },
+    "portfolio_metrics": {
+      "accepted_trades": 1134,
+      "total_return": 0.028985935893764303,
+      "annualized_return": 0.0028732575773124935,
+      "max_drawdown": -0.19693772772664242,
+      "annualized_volatility": 0.05861235664426022,
+      "sharpe_zero_rf": 0.0490213624193844,
+      "benchmark_total_return": 0.14799739999426076,
+      "excess_total_return": -0.11901146410049646,
+      "average_position_count": 0.7378600823045267,
+      "max_position_count": 10
     }
   },
   "trend": {

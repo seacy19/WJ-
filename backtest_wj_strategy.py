@@ -508,15 +508,14 @@ def simulate_short_trade_5min(
     frame: pd.DataFrame,
     minute_frame: pd.DataFrame,
     config: Config,
-    trail_mode: str = "same_bar_peak_first",
 ) -> dict | None:
     """Simulate B3 entry and exits from 5-minute bars.
 
     Entry follows B.5: buy at the first open at or below +2% from the signal
     close, or place a limit fill at +2% when a 5-minute low first reaches it.
-    same_bar_peak_first treats
-    the current bar's high as occurring before its low; prior_bar_peak only
-    uses peaks known at the previous completed bar. These bracket intrabar order.
+    The trailing stop uses only peaks known at the previous completed bar.
+    The current bar's high is incorporated only after its open and low have
+    failed to trigger the already active stop.
     """
     signal_date = str(signal["signal_date"])
     entry_date = next_trade_date(frame, signal_date)
@@ -625,9 +624,6 @@ def simulate_short_trade_5min(
                     exited = True
                     break
                 continue
-            if trail_mode not in ("same_bar_peak_first", "prior_bar_peak"):
-                raise ValueError(f"unsupported trail_mode: {trail_mode}")
-
             prior_active_stop = max(stop, peak * 0.95)
             prior_stop_reason = "买入后最高价回撤5%" if prior_active_stop > stop + 1e-10 else "-5%硬止损"
             if bar_open <= prior_active_stop:
@@ -640,29 +636,16 @@ def simulate_short_trade_5min(
                 exited = True
                 break
 
-            if trail_mode == "same_bar_peak_first":
-                peak = max(peak, bar_high)
-                active_stop = max(stop, peak * 0.95)
-                if bar_low <= active_stop:
-                    exit_date = date
-                    exit_time = str(bar["trade_time"])
-                    exit_raw = active_stop / day_factor
-                    exit_price = exit_raw * day_factor
-                    reason = "买入后最高价回撤5%" if active_stop > stop + 1e-10 else "-5%硬止损"
-                    path[date] = exit_price / entry - config.round_trip_cost
-                    exited = True
-                    break
-            else:
-                if bar_low <= prior_active_stop:
-                    exit_date = date
-                    exit_time = str(bar["trade_time"])
-                    exit_raw = prior_active_stop / day_factor
-                    exit_price = exit_raw * day_factor
-                    reason = prior_stop_reason
-                    path[date] = exit_price / entry - config.round_trip_cost
-                    exited = True
-                    break
-                peak = max(peak, bar_high)
+            if bar_low <= prior_active_stop:
+                exit_date = date
+                exit_time = str(bar["trade_time"])
+                exit_raw = prior_active_stop / day_factor
+                exit_price = exit_raw * day_factor
+                reason = prior_stop_reason
+                path[date] = exit_price / entry - config.round_trip_cost
+                exited = True
+                break
+            peak = max(peak, bar_high)
 
         if exited:
             break
@@ -713,7 +696,6 @@ def simulate_short_trade_5min(
         "holding_days": list(frame.index).index(exit_date) - entry_loc + 1,
         "net_return": final_factor - 1.0,
         "exit_reason": reason,
-        "trail_mode": trail_mode,
         "path": path,
     }
 
@@ -723,7 +705,6 @@ def run_b3_5min_trade_simulations(
     price_data: dict[str, pd.DataFrame],
     minute_root: Path,
     config: Config,
-    trail_mode: str,
 ) -> tuple[list[dict], dict]:
     if signals.empty:
         return [], {"signals": 0, "missing_minute_window": 0, "no_entry_within_2pct": 0}
@@ -741,7 +722,7 @@ def run_b3_5min_trade_simulations(
             counts["missing_minute_window"] += 1
             continue
         minute_frame = pd.read_csv(minute_path, compression="gzip")
-        trade = simulate_short_trade_5min(signal, frame, minute_frame, config, trail_mode)
+        trade = simulate_short_trade_5min(signal, frame, minute_frame, config)
         if trade is None:
             counts["no_entry_within_2pct"] += 1
             continue

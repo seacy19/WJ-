@@ -185,31 +185,28 @@ def main() -> None:
 
     b3_5min_results = {}
     if MINUTE_ROOT.exists():
-        for trail_mode, suffix in [
-            ("same_bar_peak_first", "same_bar_peak_first"),
-            ("prior_bar_peak", "prior_bar_peak"),
-        ]:
-            trades, counts = strategy.run_b3_5min_trade_simulations(
-                b3_signals, price_data, MINUTE_ROOT, config, trail_mode
-            )
-            strategy.add_benchmark_return(trades, market_daily)
-            curve, portfolio, accepted = strategy.portfolio_curve(trades, market_daily, config)
-            pd.DataFrame(strategy.serializable_trades(trades)).to_csv(
-                RESULTS / f"b3_5min_{suffix}_trades.csv", index=False, encoding="utf-8-sig"
-            )
-            pd.DataFrame(strategy.serializable_trades(accepted)).to_csv(
-                RESULTS / f"b3_5min_{suffix}_portfolio_trades.csv", index=False, encoding="utf-8-sig"
-            )
-            curve.to_csv(RESULTS / f"b3_5min_{suffix}_equity_curve.csv", encoding="utf-8-sig")
-            b3_5min_results[suffix] = {
-                "coverage": counts,
-                "candidate_trade_metrics": strategy.trade_metrics(trades),
-                "portfolio_metrics": portfolio,
-            }
-            print(
-                f"5MIN {suffix} coverage={counts} portfolio={portfolio}",
-                flush=True,
-            )
+        trades, counts = strategy.run_b3_5min_trade_simulations(
+            b3_signals, price_data, MINUTE_ROOT, config
+        )
+        strategy.add_benchmark_return(trades, market_daily)
+        curve, portfolio, accepted = strategy.portfolio_curve(trades, market_daily, config)
+        pd.DataFrame(strategy.serializable_trades(trades)).to_csv(
+            RESULTS / "b3_5min_trades.csv", index=False, encoding="utf-8-sig"
+        )
+        pd.DataFrame(strategy.serializable_trades(accepted)).to_csv(
+            RESULTS / "b3_5min_portfolio_trades.csv", index=False, encoding="utf-8-sig"
+        )
+        curve.to_csv(RESULTS / "b3_5min_equity_curve.csv", encoding="utf-8-sig")
+        b3_5min_results = {
+            "execution_path": "prior_bar_peak",
+            "coverage": counts,
+            "candidate_trade_metrics": strategy.trade_metrics(trades),
+            "portfolio_metrics": portfolio,
+        }
+        print(
+            f"5MIN prior_bar_peak coverage={counts} portfolio={portfolio}",
+            flush=True,
+        )
 
     b3_signals.to_csv(RESULTS / "b3_signals.csv", index=False, encoding="utf-8-sig")
     trend_signals.to_csv(RESULTS / "trend_signals.csv", index=False, encoding="utf-8-sig")
@@ -232,7 +229,7 @@ def main() -> None:
             "duplicates": 0,
         },
         "methodology": {
-    "b3": "same-current-industry leader-break proxy + low-base/volume filters; leader-health gate: signal close drawdown from 10-session closing high <=15%, close >= MA5, next-session open >= prior MA5 and overnight gap > -5%; daily baseline uses next-open entry capped at +7%, while 5-minute B.5 execution enters next session at the first open <=+2% or at a +2% limit touch; -5% hard stop, all-out trailing exit on 5% drawdown from peak since entry, and short time/MA exits",
+            "b3": "same-current-industry leader-break proxy + low-base/volume filters; leader-health gate: signal close drawdown from 10-session closing high <=15%, close >= MA5, next-session open >= prior MA5 and overnight gap > -5%; daily baseline uses next-open entry capped at +7%, while 5-minute B.5 execution enters next session at the first open <=+2% or at a +2% limit touch; -5% hard stop, all-out trailing exit on 5% drawdown from the previous completed 5-minute bar peak, and short time/MA exits",
             "trend": "C.3/C.4 price/volume breakout proxy only; next-open entry; -8% initial stop and 20-day/platform exit; no fundamental screen",
             "universe": "rows outside listing/delisting dates and recorded historical ST intervals excluded; current name marker stripped to avoid excluding a security from all prior years",
             "industry": "current TuShare stock_basic industry used as a proxy, not historical WJ theme membership",
