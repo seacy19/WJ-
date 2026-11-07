@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 """生成《2025年妖股名单_截至20251106_复算.xlsx》：事件汇总 / 逐日明细 / 口径说明
 复算版：原始 2025 名单文件已不在本机，2026-11-07 用与 2026 年名单完全相同的管线复算重建。
+2026-11-08：「上涨原因」「归类」两列已逐股调研补齐（reasons25.py）：
+A档 63 个连板事件逐只核实（公开报道/公告），B档 181 个纯涨幅事件按事件开始月份归入当月市场主线。
 """
 import pandas as pd
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.utils import get_column_letter
+
+from reasons25 import A_REASONS, B_THEMES
 
 ev = pd.read_csv('data/events.csv')
 hits = pd.read_csv('data/hits.csv')
@@ -20,8 +24,6 @@ def ev_type(r):
     if r.qual_gain and r.qual_streak: return '双达标（连板≥6 + 5日涨幅≥50%）'
     if r.qual_streak: return '连板达标（≥6连板）'
     return '涨幅达标（5日累计≥50%标准化）'
-
-REASON_TODO = '待补——原始2025名单文件已不在本机，本表为2026-11-07用同一管线复算重建；如需逐股原因可另行调研'
 
 NOTES = {
  # 跨年事件：连板自2024年12月起算
@@ -45,9 +47,14 @@ BJ_SET = set(ev[ev.board == 'BJ'].sym)
 
 rows = []
 for _, r in ev.iterrows():
-    note = NOTES.get((r.sym, r.start), '')
+    key = (r.sym, r.start)
+    note = NOTES.get(key, '')
     if r.board == 'BJ' and '北交所' not in note:
         note = (note + '；' if note else '') + '北交所标的（30cm阈值×1/3标准化）'
+    if key in A_REASONS:
+        reason, category = A_REASONS[key], '个股事件驱动'
+    else:
+        reason, category = B_THEMES[r.start[:7]], '主题/板块行情'
     rows.append({
         '代码': CODE(r.sym), '名称': r['name'], '板块': BOARD_NAME[r.board],
         '事件开始': r.start, '事件结束': r['end'],
@@ -57,8 +64,8 @@ for _, r in ev.iterrows():
         '连板区间': (f"{r.streak_start}~{r.streak_end}" if isinstance(r.streak_start, str) else ''),
         '最大5日涨幅%（原始）': round(r.max_gain_raw * 100, 1),
         '最大5日涨幅%（标准化）': round(r.max_gain_std * 100, 1),
-        '上涨原因': REASON_TODO,
-        '归类': '待调研',
+        '上涨原因': reason,
+        '归类': category,
         '备注': note,
     })
 df_ev = pd.DataFrame(rows)
@@ -83,7 +90,9 @@ n_stock = df_ev['代码'].nunique()
 n_double = int((df_ev['事件类型'] == '双达标（连板≥6 + 5日涨幅≥50%）').sum())
 bc = df_ev['板块'].value_counts().to_dict()
 lines = [
- ('复算说明', '原始2025年名单文件（2025年11月交付）已不在本机。本表为2026-11-07用与《2026年妖股名单》完全相同的管线与口径复算重建，事件/涨幅/连板数据完整；"上涨原因""归类"两列未能复原，标注"待补/待调研"，如需逐股原因可另行调研'),
+ ('复算说明', '原始2025年名单文件（2025年11月交付）已不在本机。本表为2026-11-07用与《2026年妖股名单》完全相同的管线与口径复算重建，事件/涨幅/连板数据完整；"上涨原因""归类"两列于2026-11-08逐股调研补齐'),
+ ('归因分档', 'A档（个股事件驱动）：63个连板达标事件，逐只核实上涨原因（公司公告、交易所互动、主流财经媒体报道）；B档（主题/板块行情）：181个纯涨幅达标事件，按事件开始月份归入当月市场主线'),
+ ('2025年月度主线', '1月 机器人/AI算力/零售消费；2月 DeepSeek/AI应用；3月 三孩消费/深海科技；4月 关税博弈（内需+外贸）；5月 军工（印巴冲突）/苏超；6月 固态电池/创新药/油气；7月 雅下水电站/反内卷；8月 AI硬件（液冷/CPO）；9月 算力（光纤/存储）/宇树IPO；10月 存储芯片/煤炭/三季报；11月 医药商业/两岸融合'),
  ('统计区间', '2025年1月1日至2025年11月6日（与2026年名单截止日对齐），沪深京A股全市场（名单5578只为2026年11月快照，其中165只为2026年新上市、2025年无交易数据，实际覆盖5413只）'),
  ('筛选口径', '满足以下任一条件即记为一个"妖股事件"：①任意连续5个交易日累计涨幅≥50%（标准化口径）；②连续涨停≥6天'),
  ('标准化系数', '主板×1.0；创业板×0.5；科创板×0.5；北交所×1/3（用各板涨跌幅限制对涨幅归一化，消除20cm/30cm与10cm板的天然差异）'),
@@ -102,7 +111,8 @@ lines = [
 df_spec = pd.DataFrame(lines, columns=['项目', '说明'])
 
 # ---------- 写出 ----------
-out = '/Users/seacy/Documents/Kimi/Workspaces/wj strategy/scan2025/2025年妖股名单_截至20251106_复算.xlsx'
+import os
+out = os.path.join(os.path.dirname(os.path.abspath(__file__)), '2025年妖股名单_截至20251106_复算.xlsx')
 with pd.ExcelWriter(out, engine='openpyxl') as w:
     df_ev.to_excel(w, sheet_name='事件汇总', index=False)
     df_hit.to_excel(w, sheet_name='逐日明细', index=False)
