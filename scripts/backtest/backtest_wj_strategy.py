@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 
 # The project-requested Tushare initialization is intentionally kept verbatim.
-sys.path.insert(0, str(Path(__file__).resolve().parent / ".tushare_runtime"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / ".tushare_runtime"))
 import tushare as ts
 import tushare.pro.client as client
 client.DataApi._DataApi__http_url = "http://api.quicksync.cn"
@@ -25,7 +25,7 @@ if not TUSHARE_TOKEN:
 pro = ts.pro_api(TUSHARE_TOKEN)
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[2]  # 仓库根目录（脚本位于 scripts/backtest/ 下）
 CACHE = ROOT / "wj_backtest_cache"
 RESULTS = ROOT / "wj_backtest_results"
 

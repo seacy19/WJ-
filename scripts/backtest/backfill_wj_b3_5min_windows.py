@@ -19,7 +19,7 @@ from pathlib import Path
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[2]  # 仓库根目录（脚本位于 scripts/backtest/ 下）
 RESULTS = ROOT / "wj_backtest_results_2016_2025_leader_filter_trail5"
 SIGNALS = RESULTS / "b3_signals.csv"
 CURVE = RESULTS / "b3_equity_curve.csv"
